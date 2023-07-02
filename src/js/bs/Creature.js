@@ -7,7 +7,19 @@ class Creature {
         this.dy = 0;
     }
 
-    move(params) {}
+    move(params) {
+        const speed = params.hasOwnProperty('speed') ? params.speed : 1;
+        this.dx = params.hasOwnProperty('dx') && params.dx !== 0 ?
+            params.dx : this.dx;
+        this.dy = params.hasOwnProperty('dy') && params.dy !== 0 ?
+            params.dy : this.dy;
+        
+        const x_pos = this.x + (this.dx * speed);
+        this.x = x_pos >= 0 ? x_pos : 0;
+
+        const y_pos = this.y + (this.dy * speed);
+        this.y = y_pos >= 0 ? y_pos : 0;
+    }
 }
 
 const position = {
