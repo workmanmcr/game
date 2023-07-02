@@ -100,7 +100,7 @@ each([[params]]).test('returns %s when given %s and %s', (expected, a, b) => {
 `
 ```
 
-At least one varName should be outcome, result or output, but the word expected is more clear and relevant to the purpose of testing.
+At least one varName should be outcome, result or output. Using the word, expected, would confuse the editor. Outcome and result are clear and relevant to the purpose of testing.
 
 No need for parens to surround template literal. Tabbing and spaces do not make a difference, but rows and order do.
 
