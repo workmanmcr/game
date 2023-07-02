@@ -9,16 +9,20 @@ class Creature {
 
     move(params) {
         const speed = params.hasOwnProperty('speed') ? params.speed : 1;
-        this.dx = params.hasOwnProperty('dx') && params.dx !== 0 ?
-            params.dx : this.dx;
-        this.dy = params.hasOwnProperty('dy') && params.dy !== 0 ?
-            params.dy : this.dy;
+        if (typeof speed !== 'number')
+            return;
         
-        const x_pos = this.x + (this.dx * speed);
-        this.x = x_pos >= 0 ? x_pos : 0;
+        this.dx = params.hasOwnProperty('dx') && typeof params.dx === 'number' ? params.dx : 0;
+        if (this.dx !== 0) {
+            const x_pos = this.x + (this.dx * speed);
+            this.x = x_pos >= 0 ? x_pos : 0;
+        }
 
-        const y_pos = this.y + (this.dy * speed);
-        this.y = y_pos >= 0 ? y_pos : 0;
+        this.dy = params.hasOwnProperty('dy') && typeof params.dy === 'number' ? params.dy : 0;
+        if (this.dy !== 0) {
+            const y_pos = this.y + (this.dy * speed);
+            this.y = y_pos >= 0 ? y_pos : 0;
+        }
     }
 }
 
