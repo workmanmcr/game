@@ -6,6 +6,8 @@ class Creature {
         this.dx = 0;
         this.dy = 0;
     }
+
+    move(params) {}
 }
 
 const position = {

@@ -18,4 +18,20 @@ describe("Creature", () => {
         expect(creature.dx).toEqual(outcome.dx);
         expect(creature.dy).toEqual(outcome.dy);
     });
+
+    const creature = makeCreature({ x: 2, y: 2 });
+
+    each`
+        speed | dx    | dy    | x     | y
+        ${1}  | ${1}  | ${1}  | ${3}  | ${3}
+        ${1}  | ${-1} | ${1}  | ${1}  | ${3}
+        ${1}  | ${1}  | ${-1} | ${3}  | ${1}
+        ${2}  | ${-1} | ${-1} | ${0}  | ${0}
+        ${3}  | ${-1} | ${1}  | ${2}  | ${5}
+        ${3}  | ${1}  | ${-1} | ${5}  | ${2}
+    `.test("Should change creature's position to $x, $y given speed=$speed, dx=$dx, and dy=$dy }", ({ speed, dx, dy, x, y }) => {
+        creature.move({ speed, dx, dy });
+        expect(creature.x).toBe(x);
+        expect(creature.y).toBe(y);
+    })
 });
