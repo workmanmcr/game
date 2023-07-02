@@ -7,6 +7,11 @@ class Creature {
         this.dy = 0;
     }
 
+    /**
+     * Receives a speed, dx and dy. Checks if inputs are valid. If any are found to be invalid, the creature does not move, otherwise the creature moves as directed unless the move would cause them to move off the map.
+     * @param {Object} params 
+     * @returns undefined if speed is invalid
+     */
     move(params) {
         const speed = params.hasOwnProperty('speed') ? params.speed : 1;
         if (typeof speed !== 'number')
