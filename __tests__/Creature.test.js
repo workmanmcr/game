@@ -23,6 +23,8 @@ describe("Creature", () => {
 
     beforeEach(() => {
         params.creature = makeCreature({ x: 2, y: 2 });
+        params.creature.dx = 1;
+        params.creature.dy = 1;
     })
 
     each`
@@ -35,6 +37,10 @@ describe("Creature", () => {
         ${3}  | ${1}  | ${-1} | ${5}  | ${0}
         ${1}  | ${0}  | ${1}  | ${2}  | ${3}
         ${1}  | ${1}  | ${0}  | ${3}  | ${2}  
+        ${1}  | ${0}  | ${0}  | ${2}  | ${2}
+        ${'1'} | ${1} | ${1}  | ${2}  | ${2}
+        ${1}  | ${'1'}| ${1}  | ${2}  | ${3}
+        ${1}  | ${1}  | ${'1'}| ${3}  | ${2}
     `.test("Should change creature's position to $x, $y given speed=$speed, dx=$dx, and dy=$dy }", ({ speed, dx, dy, x, y }) => {
         params.creature.move({ speed, dx, dy });
         expect(params.creature.x).toBe(x);
