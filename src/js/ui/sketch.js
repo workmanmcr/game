@@ -1,4 +1,4 @@
-import Player from "../bs/Player"
+import Player from "../bs/Player";
 
 export const app = {
     setView(width, height) {

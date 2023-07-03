@@ -6,8 +6,8 @@ describe("Player", () => {
         const x = 1;
         const y = 1;
         const player = new Player(x, y);
-        expect(player.x).toBe(1);
-        expect(player.y).toBe(1);
+        expect(player.pos.x).toBe(1);
+        expect(player.pos.y).toBe(1);
         expect(player.dx).toBe(0);
         expect(player.dy).toBe(0);
         expect(player.speed).toBe(2);

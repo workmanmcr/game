@@ -1,12 +1,11 @@
 export default class Player {
   constructor(x, y) {
-      this.size = 1;
-      this.dy = 0;
-      this.dx = 0; 
-      this.speed = 2;
-      this.x = x;
-      this.y = y;
-      this.health = 3;
+    this.size = 1;
+    this.dy = 0;
+    this.dx = 0;
+    this.speed = 2;
+    this.pos = { x, y };
+    this.health = 3;
   }
   move(p) {
     if (p.keyIsDown(65)) {
@@ -26,7 +25,7 @@ export default class Player {
       console.log("move right");
     }
     this.pos.x += this.dx * this.speed;
-    
+
     // this.angle = atan2(mouseY - this.pos.y, mouseX - this.pos.x); // add this
-  }
+    }
 }
