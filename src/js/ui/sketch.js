@@ -3,13 +3,13 @@ export const app = {
         this.width = width;
         this.height = height;
     }
-}
+};
 
 export function sketch(p) {
     p.setup = function () {
         p.rectMode(p.CENTER);
         p.createCanvas(app.width, app.height);
-    } 
+    } ;
 
-    p.draw = function () {}
+    p.draw = function () {};
 }
