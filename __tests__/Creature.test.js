@@ -44,11 +44,24 @@ describe("Creature", () => {
             || input.color)
     });
 
-    // let creature;
+    const pos = { x: 32, y: 32 };
 
-    // beforeEach(() => {
-    //     creature = makeCreature({ x: input.x, y: input.y });
-    // });
-
-    // each().test("")
+    each([
+        [-Math.PI],
+        [-(3 / 4) * Math.PI],
+        [-Math.PI / 2],
+        [-Math.PI / 4],
+        [0],
+        [Math.PI / 4],
+        [Math.PI / 2],
+        [(3 / 4) * Math.PI],
+        [Math.PI]
+    ]).test("should add a sting with angle=%s to creature's stings", (angle) => {
+        const creature = makeCreature({ ...pos });
+        creature.angle = angle;
+        creature.shoot();
+        expect(creature.stings[0].x).toBe(pos.x);
+        expect(creature.stings[0].y).toBe(pos.y);
+        expect(creature.stings[0].angle).toBeCloseTo(angle);
+    })
 });
