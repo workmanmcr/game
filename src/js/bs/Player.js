@@ -12,7 +12,7 @@ export default class Player {
       this.dx = -1;
       console.log("move left");
     }
-    if (p.keyIsDown(68)) {
+    if (p.keyIsDown(83)) {
       this.dy = 1;
       console.log("move down");
     }
@@ -20,7 +20,7 @@ export default class Player {
       this.dy = -1;
       console.log("move up");
     }
-    if (p.keyIsDown(83)) {
+    if (p.keyIsDown(68)) {
       this.dx = 1;
       console.log("move right");
     }
