@@ -13,5 +13,24 @@ describe("Sting", () => {
         expect(sting.x).toBe(outcome.x);
         expect(sting.y).toBe(outcome.y);
         expect(sting.angle).toBeCloseTo(outcome.angle);
-    })
-})
+    });
+
+    const pos = { x: 32, y: 32 };
+
+    each([
+        [-Math.PI],
+        [-(3 / 4) * Math.PI],
+        [-Math.PI / 2],
+        [-Math.PI / 4],
+        [0],
+        [Math.PI / 4],
+        [Math.PI / 2],
+        [(3 / 4) * Math.PI],
+        [Math.PI]
+    ]).test("should move x and y by cos and sin of %s * 16", (angle) => {
+        const sting = makeSting({ ...pos, angle });
+        sting.move();
+        expect(sting.x).toBeCloseTo(pos.x + (16 * Math.cos(angle)));
+        expect(sting.y).toBeCloseTo(pos.y + (16 * Math.sin(angle)));
+    });
+});
