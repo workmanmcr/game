@@ -42,5 +42,13 @@ describe("Creature", () => {
             || input.health);
         expect(creature.color).toEqual(outcome.color
             || input.color)
-    })
+    });
+
+    // let creature;
+
+    // beforeEach(() => {
+    //     creature = makeCreature({ x: input.x, y: input.y });
+    // });
+
+    // each().test("")
 });
