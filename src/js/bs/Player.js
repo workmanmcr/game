@@ -1,14 +1,12 @@
 export default class Player {
-  constructor() {
-      // this.width = width;
-      // this.height = height;
-      // this.dy = 0;
-      // this.dx = 1;
-      // this.angle = 0; 
-      // this.speed = 1;
-      // this.x = x;
-      // this.y = y;
-      // this.health = 3;
+  constructor(x, y) {
+      this.size = 1;
+      this.dy = 0;
+      this.dx = 0; 
+      this.speed = 2;
+      this.x = x;
+      this.y = y;
+      this.health = 3;
   }
   
 
