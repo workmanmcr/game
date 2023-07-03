@@ -1,9 +1,8 @@
-const app = {
-    unit: 16
-};
-
-export function setApp(params) {
-    app = { ...app, width: params.width, height: params.height };
+export const app = {
+    setView(width, height) {
+        this.width = width;
+        this.height = height;
+    }
 }
 
 export function sketch(p) {
