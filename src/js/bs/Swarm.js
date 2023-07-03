@@ -4,6 +4,20 @@ import makeCreature from './Creature';
 
 class Swarm {
     constructor(params) {
+        this.bases = params.bases;
+        this.creatures = [];
+        for (let i = 0; i < params.mobs; i++) {
+            this.creatures[i] = [];
+            for (let j = 0; j < params.creatures; j++) {
+                const base = this.bases[i];
+                this.creatures[i][j] = makeCreature({
+                    x: base[0],
+                    y: base[1],
+                    type: params.type
+                })
+            }
+                
+        }
     }
 }
 
@@ -40,7 +54,7 @@ export default function makeSwarm(params) {
         && ['spider', 'wasp', 'hornet', 'scarab'].includes(params.type) ?
         params.type : 'creature';
     
-    switch (type) {
+    switch (params.type) {
         case 'spider':
             params.creatures = 1;
             break;
