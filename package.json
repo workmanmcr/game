@@ -33,6 +33,6 @@
     "webpack-dev-server": "^4.0.0"
   },
   "dependencies": {
-    "node-p5": "^1.0.4"
+    "p5": "^1.6.0"
   }
 }
