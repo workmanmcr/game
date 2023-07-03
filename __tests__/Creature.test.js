@@ -63,5 +63,18 @@ describe("Creature", () => {
         expect(creature.stings[0].x).toBe(pos.x);
         expect(creature.stings[0].y).toBe(pos.y);
         expect(creature.stings[0].angle).toBeCloseTo(angle);
+    });
+
+    each([
+        ['spider', 2, false],
+        ['wasp', 1, false],
+        ['hornet', 3, false],
+        ['scarab', 1, false],
+        ['', 0, true]
+    ]).test("should lower %s creature's health to %s and return %s for dead", (type, health, status) => {
+        const creature = makeCreature({ ...pos, type });
+        const death = creature.hit();
+        expect(creature.health).toBe(health);
+        expect(death).toBe(status);
     })
 });
