@@ -1,3 +1,5 @@
+import Player from "../bs/Player"
+
 export const app = {
     setView(width, height) {
         this.width = width;
@@ -11,5 +13,8 @@ export function sketch(p) {
         p.createCanvas(app.width, app.height);
     } ;
 
-    p.draw = function () {};
+    p.draw = function () {
+        const player = new Player(1, 1);
+        player.move(p);
+    };
 }

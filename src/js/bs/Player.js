@@ -8,26 +8,25 @@ export default class Player {
       this.y = y;
       this.health = 3;
   }
-  move() {
-    let xSpeed = 0;
-    let ySpeed = 0;
-    if (keyIsDown(65)) {
-      xSpeed = -2;
+  move(p) {
+    if (p.keyIsDown(65)) {
+      this.dx = -1;
       console.log("move left");
     }
-    if (keyIsDown(68)) {
-      xSpeed = 2;
-      console.log("down");
+    if (p.keyIsDown(68)) {
+      this.dy = 1;
+      console.log("move down");
     }
-    if (keyIsDown(87)) {
-      ySpeed = -2;
+    if (p.keyIsDown(87)) {
+      this.dy = -1;
       console.log("move up");
     }
-    if (keyIsDown(83)) {
-      ySpeed = 2;
+    if (p.keyIsDown(83)) {
+      this.dx = 1;
       console.log("move right");
     }
-    this.pos.add(xSpeed, ySpeed);
-    this.angle = atan2(mouseY - this.pos.y, mouseX - this.pos.x); // add this
+    this.pos.x += this.dx * this.speed;
+    
+    // this.angle = atan2(mouseY - this.pos.y, mouseX - this.pos.x); // add this
   }
 }
