@@ -5,7 +5,7 @@ class Ammunition {
         this.x = x;
         this.y = y;
         this.angle = angle;
-        this.speed = 16;
+        this.speed = App.unit;
     }
 
     move() {
