@@ -13,15 +13,13 @@ describe("Swarm", () => {
     each([
         [[[1, 1], [1, 2]], 2, 'spider', {
             bases: [ [1, 1], [1, 2] ],
-            creatures: [ [ spider ],
-                [{
-                    pos: { x: 1, y: 2 },
-                    speed: 3,
-                    health: 3
-                }]
-            ]
+            creatures: [[spider], {
+                pos: { x: 1, y: 2 },
+                speed: 4,
+                health: 3
+            }]
         }],
-        [[[1, 1]], 2, 1, 'spider', {
+        [[[1, 1]], 2, 'spider', {
             bases: [ [1, 1] ],
             creatures: [ [ spider ] ]
         }],
@@ -71,13 +69,14 @@ describe("Swarm", () => {
     ]).test("should return swarm with bases=%s, %s mobs and no. of creatures per mob based on %s ", (bases, mobs, type, outcome) => {
         const swarm = makeSwarm({ bases, mobs, type });
         // bases: no. and coordinates
-        expect(swarm.bases).toBe(outcome.bases); 
+        expect(swarm.bases).toEqual(outcome.bases); 
         // no. of mobs
         expect(swarm.creatures.length).toBe(outcome.creatures.length); 
         // no. of creatures per mob
         expect(swarm.creatures[0].length).toBe(outcome.creatures[0].length); 
         // position of first creature in first mob
-        expect(swarm.creatures[0][0].pos).toBe(outcome.creatures[0][0].pos);
+        expect(swarm.creatures[0][0].pos.x).toBe(outcome.creatures[0][0].pos.x);
+        expect(swarm.creatures[0][0].pos.y).toBe(outcome.creatures[0][0].pos.y);
         // speed of first creature in first mob matches type speed
         expect(swarm.creatures[0][0].speed).toBe(outcome.creatures[0][0].speed);
         // health of first creature in first mob matches type health

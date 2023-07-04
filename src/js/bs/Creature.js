@@ -100,11 +100,11 @@ class Scarab extends Creature {
 }
 
 const creatures = {
-    creature: Creature.prototype,
-    spider: Spider.prototype,
-    wasp: Wasp.prototype,
-    hornet: Hornet.prototype,
-    scarab: Scarab.prototype
+    creature: (params) => new Creature(params),
+    spider: (params) => new Spider(params),
+    wasp: (params) => new Wasp(params),
+    hornet: (params) => new Hornet(params),
+    scarab: (params) => new Scarab(params)
 }
 
 export default function makeCreature(params) { 
@@ -118,5 +118,5 @@ export default function makeCreature(params) {
         && ['spider', 'wasp', 'hornet', 'scarab'].includes(params.type) ?
         params.type : 'creature';
     delete params.type;
-    return new creatures[type](params);
+    return creatures[type](params);
 }
