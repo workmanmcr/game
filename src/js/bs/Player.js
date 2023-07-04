@@ -1,23 +1,31 @@
 export default class Player {
   constructor(x, y) {
-      this.size = 1;
-      this.dy = 0;
-      this.dx = 0; 
-      this.speed = 2;
-      this.x = x;
-      this.y = y;
-      this.health = 3;
+    this.size = 1;
+    this.dy = 0;
+    this.dx = 0;
+    this.speed = 2;
+    this.pos = { x, y };
+    this.health = 3;
   }
-  
+  move(p) {
+    if (p.keyIsDown(65)) {
+      this.dx = -1;
+      console.log("move left");
+    }
+    if (p.keyIsDown(83)) {
+      this.dy = 1;
+      console.log("move down");
+    }
+    if (p.keyIsDown(87)) {
+      this.dy = -1;
+      console.log("move up");
+    }
+    if (p.keyIsDown(68)) {
+      this.dx = 1;
+      console.log("move right");
+    }
+    this.pos.x += this.dx * this.speed;
 
-    // movement() {
-    //   if (key === 'W' || key === 'w') {
-    //     player.moveUp();
-    //   } else if (key === 'S' || key === 's') {
-    //     player.moveDown();
-    //   } else if (key === 'A' || key === 'a') {
-    //     player.moveLeft();
-    //   } else if (key === 'D' || key === 'd') {
-    //     player.moveRight();
-    //   }
+    // this.angle = atan2(mouseY - this.pos.y, mouseX - this.pos.x); // add this
+    }
 }
