@@ -28,13 +28,26 @@ class HornetSwarm extends Swarm { }
 
 class ScarabSwarm extends Swarm { }
 
+function isNumber(coordinate) {
+    return typeof coordinate === 'number' ?
+        coordinate : App.invalid_coordinate;
+}
+
 export default function makeSwarm(params) {
-    if (params.hasOwnProperty('bases') && Array.isArray(params.bases)) {
-        for (const base of params.bases) {
-            base.x = typeof base.x === 'number' ? base.x : App.invalid_coordinate;
-            base.y = typeof base.y === 'number' ? base.y : App.invalid_coordinate;
-        }
-    }
+    params.bases = params.hasOwnProperty('bases') ?
+        Array.isArray(params.bases) ?
+            params.bases.map(base => ({
+                x: isNumber(base.x),
+                y: isNumber(base.y),
+            }))
+            : [{
+                x: params.bases.hasOwnProperty('x') ?
+                    isNumber(params.bases.x) : App.invalid_coordinate,
+                y: params.bases.hasOwnProperty('y') ?
+                    isNumber(params.bases.y) : App.invalid_coordinate
+            }]
+        : [];
+
     params.type = params.hasOwnProperty('type')
         && ['spider', 'wasp', 'hornet', 'scarab'].includes(params.type) ?
         params.type : 'creature';
