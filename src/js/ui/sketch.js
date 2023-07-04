@@ -16,5 +16,6 @@ export function sketch(p) {
     p.draw = function () {
         const player = new Player(1, 1);
         player.move(p);
+        player.shoot(p)
     };
 }

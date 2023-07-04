@@ -7,6 +7,7 @@ export default class Player {
     this.pos = { x, y };
     this.health = 3;
   }
+
   move(p) {
     if (p.keyIsDown(65)) {
       this.dx = -1;
@@ -25,7 +26,10 @@ export default class Player {
       console.log("move right");
     }
     this.pos.x += this.dx * this.speed;
-
-    // this.angle = atan2(mouseY - this.pos.y, mouseX - this.pos.x); // add this
+  }
+  shoot(p) {
+    if (p.keyIsDown(32)) {
+      console.log("Shoot");
     }
+  }
 }
