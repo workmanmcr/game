@@ -30,7 +30,10 @@ class ScarabSwarm extends Swarm { }
 
 export default function makeSwarm(params) {
     if (params.hasOwnProperty('bases') && Array.isArray(params.bases)) {
-        
+        for (const base of params.bases) {
+            base.x = typeof base.x === 'number' ? base.x : App.invalid_coordinate;
+            base.y = typeof base.y === 'number' ? base.y : App.invalid_coordinate;
+        }
     }
     params.type = params.hasOwnProperty('type')
         && ['spider', 'wasp', 'hornet', 'scarab'].includes(params.type) ?

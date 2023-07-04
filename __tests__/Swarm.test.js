@@ -106,25 +106,17 @@ describe("Swarm", () => {
         expect(swarm.creatures.length).toBe(outcome.creatures.length);
         if (swarm.creatures.length === 0)
             return;
-        const lastMob = swarm.creatures.length - 1;
-        const lastCreature = swarm.creatures[lastMob].length - 1;
-        // no. of creatures per mob
-        expect(swarm.creatures[lastMob].length).toBe(outcome.creatures[lastMob].length); 
-        // position of last creature in last mob
-        expect(swarm.creatures[lastMob][lastCreature].pos.x)
-            .toBe(outcome.creatures[lastMob][lastCreature].pos.x);
-        expect(swarm.creatures[lastMob][lastCreature].pos.y)
-            .toBe(outcome.creatures[lastMob][lastCreature].pos.y);
-        // generation position of last creature in last mob
-        expect(swarm.creatures[lastMob][lastCreature].base.x)
-            .toBe(outcome.creatures[lastMob][lastCreature].base.x);
-        expect(swarm.creatures[lastMob][lastCreature].base.y)
-            .toBe(outcome.creatures[lastMob][lastCreature].base.y);
-        // speed of last creature in last mob matches type speed
-        expect(swarm.creatures[lastMob][lastCreature].speed)
-            .toBe(outcome.creatures[lastMob][lastCreature].speed);
-        // health of last creature in last mob matches type health
-        expect(swarm.creatures[lastMob][lastCreature].health)
-            .toBe(outcome.creatures[lastMob][lastCreature].health);
+        for (let i = 0; i < swarm.creatures.length; i++) {
+            const mob = swarm.creatures[i];
+            for (let j = 0; j < mob.length; j++) {
+                const creature = mob[j];
+                expect(creature.pos.x).toBe(outcome.creatures[i][j].pos.x);
+                expect(creature.pos.y).toBe(outcome.creatures[i][j].pos.y);
+                expect(creature.base.x).toBe(outcome.creatures[i][j].base.x);
+                expect(creature.base.y).toBe(outcome.creatures[i][j].base.y);
+                expect(creature.speed).toBe(outcome.creatures[i][j].speed);
+                expect(creature.health).toBe(outcome.creatures[i][j].health);
+            }
+        }
     });
 });
