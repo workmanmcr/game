@@ -1,4 +1,5 @@
 import each from 'jest-each';
+import App from "../src/js/bs/App";
 import makeAmmunition from "../src/js/bs/Ammunition";
 
 describe("Ammunition", () => {
@@ -30,7 +31,7 @@ describe("Ammunition", () => {
     ]).test("should move x and y by cos and sin of %s * 16", (angle) => {
         const ammunition = makeAmmunition({ ...pos, angle });
         ammunition.move();
-        expect(ammunition.x).toBeCloseTo(pos.x + (16 * Math.cos(angle)));
-        expect(ammunition.y).toBeCloseTo(pos.y + (16 * Math.sin(angle)));
+        expect(ammunition.x).toBeCloseTo(pos.x + (App.unit * Math.cos(angle)));
+        expect(ammunition.y).toBeCloseTo(pos.y + (App.unit * Math.sin(angle)));
     });
 });
