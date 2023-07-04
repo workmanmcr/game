@@ -12,20 +12,14 @@ class Creature {
         if (!params.hasOwnProperty('health'))
             params.health = 1;
         
-        if (!params.hasOwnProperty('size'))
-            params.size = 1;
-        
         if (!params.hasOwnProperty('color'))
             params.color = [0];
 
         this.pos = { x: params.x, y: params.y };
         this.dx = 0;
         this.dy = 0;
-        this.angle = 0;
         this.speed = params.speed;
         this.health = params.health;
-
-        this.dimension = params.size * App.unit;
         this.color = params.color;
 
         this.stings = [];

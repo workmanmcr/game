@@ -3,84 +3,128 @@ import makeSwarm from '../src/js/bs/Swarm';
 
 describe("Swarm", () => {
 
-    const pos = { x: 1, y: 1 };
-    const spider = { pos, speed: 4, health: 3 };
-    const wasp = { pos, speed: 3, health: 2 };
-    const hornet = { pos, speed: 3, health: 4 };
-    const scarab = { pos, speed: 3, health: 2 };
-    const creature = { pos, speed: 2, health: 1 };
+    const pos = {
+        x: 1,
+        y: 1
+    };
+    const spider = {
+        pos,
+        speed: 4,
+        health: 3,
+        base: pos
+    };
+    const wasp = {
+        pos,
+        speed: 3,
+        health: 2,
+        base: pos
+    };
+    const hornet = {
+        pos,
+        speed: 3,
+        health: 4,
+        base: pos
+    };
+    const scarab = {
+        pos,
+        speed: 3,
+        health: 2,
+        base: pos
+    };
+    const creature = {
+        pos,
+        speed: 2,
+        health: 1,
+        base: pos
+    };
+    const bases = [{
+        x: 1,
+        y: 1
+    }];
 
     each([
-        [[[1, 1], [1, 2]], 2, 'spider', {
-            bases: [ [1, 1], [1, 2] ],
-            creatures: [[spider], {
-                pos: { x: 1, y: 2 },
-                speed: 4,
-                health: 3
-            }]
+        [1, 'spider', bases, { creatures: [ [spider] ] }],
+        [2, 'wasp', bases, { creatures: [ [ wasp, wasp, wasp ] ] }],
+        [3, 'hornet', bases, { creatures: [ [ hornet, hornet, hornet, hornet ] ] }],
+        [4, 'scarab', bases, {
+            creatures: [ [ scarab, scarab, scarab, scarab, scarab, scarab, scarab, scarab, scarab, scarab, scarab, scarab, scarab, scarab, scarab, scarab, scarab, scarab, scarab, scarab ] ]
         }],
-        [[[1, 1]], 2, 'spider', {
-            bases: [ [1, 1] ],
-            creatures: [ [ spider ] ]
+        [5, '', bases, {
+            creatures: [[creature, creature, creature, creature, creature]]
         }],
-        [[[1, 1], [1, 2]], 1, 'spider', {
-            bases: [ [1, 1] ],
-            creatures: [ [ spider ] ]
+        [6, 'wizard', bases, {
+            creatures: [[creature, creature, creature, creature, creature]]
         }],
-        [[[1, 1]], 1, 'wasp', {
-            bases: [ [1, 1] ],
-            creatures: [ [ wasp, wasp, wasp ] ]
+        [7, 1, bases, {
+            creatures: [[creature, creature, creature, creature, creature]]
         }],
-        [[[1, 1]], 1, 'hornet', {
-            bases: [ [1, 1] ],
-            creatures: [ [ hornet, hornet, hornet, hornet ] ]
+        [8, 'spider', [], { creatures: [] }],
+        [9, 'spider', { x: 1, y: 1 }, { creatures: [[spider]] }],
+        [10, 'spider', { x: '1', y: 1 }, {
+            creatures: [[
+                {
+                    pos: { x: -100, y: 1 },
+                    speed: 4,
+                    health: 3,
+                    base: { x: -100, y: 1 }
+                }
+            ]]
         }],
-        [[[1, 1]], 1, 'scarab', {
-            bases: [ [1, 1] ],
-            creatures: [
-                [
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab,
-                    scarab
-                ]
-            ]
+        [11, 'spider', { x: 1, y: '1' }, {
+            creatures: [[
+                {
+                    pos: { x: 1, y: -100 },
+                    speed: 4,
+                    health: 3,
+                    base: { x: 1, y: -100 }
+                }
+            ]]
         }],
-        [[[1, 1]], 1, '', {
-            bases: [[1, 1]],
-            creatures: [ [ creature, creature, creature, creature, creature ] ]
+        [12, 'spider', [{ x: -10, y: -10 }], {
+            creatures: [[
+                {
+                    pos: { x: -10, y: -10 },
+                    speed: 4,
+                    health: 3,
+                    base: { x: -10, y: -10 }
+                }
+            ]]
+        }],
+        [13, 'spider', [{ x: 1, y: 1 }, { x: 2, y: 2 }], {
+            creatures: [[spider], [
+                {
+                    pos: { x: 2, y: 2 },
+                    speed: 4,
+                    health: 3,
+                    base: { x: 2, y: 2 }
+                }
+            ]]
         }]
-    ]).test("should return swarm with bases=%s, %s mobs and no. of creatures per mob based on %s ", (bases, mobs, type, outcome) => {
-        const swarm = makeSwarm({ bases, mobs, type });
-        // bases: no. and coordinates
-        expect(swarm.bases).toEqual(outcome.bases); 
+    ]).test("%s should return swarm with no. of mobs equivalent to bases and no. of creatures per mob based on %s", (num, type, bases, outcome) => {
+        const swarm = makeSwarm({ test, type, bases });
         // no. of mobs
-        expect(swarm.creatures.length).toBe(outcome.creatures.length); 
+        expect(swarm.creatures.length).toBe(outcome.creatures.length);
+        if (swarm.creatures.length === 0)
+            return;
+        const lastMob = swarm.creatures.length - 1;
+        const lastCreature = swarm.creatures[lastMob].length - 1;
         // no. of creatures per mob
-        expect(swarm.creatures[0].length).toBe(outcome.creatures[0].length); 
-        // position of first creature in first mob
-        expect(swarm.creatures[0][0].pos.x).toBe(outcome.creatures[0][0].pos.x);
-        expect(swarm.creatures[0][0].pos.y).toBe(outcome.creatures[0][0].pos.y);
-        // speed of first creature in first mob matches type speed
-        expect(swarm.creatures[0][0].speed).toBe(outcome.creatures[0][0].speed);
-        // health of first creature in first mob matches type health
-        expect(swarm.creatures[0][0].health).toBe(outcome.creatures[0][0].health);
-        
+        expect(swarm.creatures[lastMob].length).toBe(outcome.creatures[lastMob].length); 
+        // position of last creature in last mob
+        expect(swarm.creatures[lastMob][lastCreature].pos.x)
+            .toBe(outcome.creatures[lastMob][lastCreature].pos.x);
+        expect(swarm.creatures[lastMob][lastCreature].pos.y)
+            .toBe(outcome.creatures[lastMob][lastCreature].pos.y);
+        // generation position of last creature in last mob
+        expect(swarm.creatures[lastMob][lastCreature].base.x)
+            .toBe(outcome.creatures[lastMob][lastCreature].base.x);
+        expect(swarm.creatures[lastMob][lastCreature].base.y)
+            .toBe(outcome.creatures[lastMob][lastCreature].base.y);
+        // speed of last creature in last mob matches type speed
+        expect(swarm.creatures[lastMob][lastCreature].speed)
+            .toBe(outcome.creatures[lastMob][lastCreature].speed);
+        // health of last creature in last mob matches type health
+        expect(swarm.creatures[lastMob][lastCreature].health)
+            .toBe(outcome.creatures[lastMob][lastCreature].health);
     });
 });

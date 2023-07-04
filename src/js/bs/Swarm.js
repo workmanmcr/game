@@ -4,19 +4,18 @@ import makeCreature from './Creature';
 
 class Swarm {
     constructor(params) {
-        this.bases = params.bases;
         this.creatures = [];
-        for (let i = 0; i < params.mobs; i++) {
+        for (let i = 0; i < params.bases.length; i++) {
             this.creatures[i] = [];
+            const base = params.bases[i];
             for (let j = 0; j < params.creatures; j++) {
-                const base = this.bases[i];
                 this.creatures[i][j] = makeCreature({
-                    x: base[0],
-                    y: base[1],
+                    x: base.x,
+                    y: base.y,
                     type: params.type
-                })
+                });
+                this.creatures[i][j].base = base;
             }
-                
         }
     }
 }
@@ -30,26 +29,9 @@ class HornetSwarm extends Swarm { }
 class ScarabSwarm extends Swarm { }
 
 export default function makeSwarm(params) {
-    params.bases = params.hasOwnProperty('bases')
-        && Array.isArray(params.bases)
-        && params.bases.every(base => base.length === 2) ?
-        params.bases : [
-            [App.invalid_coordinate, App.invalid_coordinate],
-            [App.invalid_coordinate, App.invalid_coordinate],
-            [App.invalid_coordinate, App.invalid_coordinate]
-        ];
-    params.mobs = params.hasOwnProperty('mobs')
-        && params.mobs === 'number'
-        && params.mobs > 0 ?
-        params.mobs : 1;
-    if (params.mobs !== params.bases.length) {
-        if (params.mobs > params.bases.length)
-            params.mobs = params.bases.length;
-        else
-            for (let i = 0; i < params.bases.length - params.mobs; i++)
-                params.bases.pop();
+    if (params.hasOwnProperty('bases') && Array.isArray(params.bases)) {
+        
     }
-    
     params.type = params.hasOwnProperty('type')
         && ['spider', 'wasp', 'hornet', 'scarab'].includes(params.type) ?
         params.type : 'creature';
