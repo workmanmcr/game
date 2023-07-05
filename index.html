@@ -1,81 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <title>Game: </title>
     <!-- <link rel="stylesheet" href="./css/fonts.css"> -->
-    <link rel="stylesheet" href="./css/styles.css"> 
     <link rel="stylesheet" href="./css/SpritesCamMap.css">
     <link rel="stylesheet" href="./css/styles.css">
 
 </head>
+
+
 <body>
     <div id="menu">
-        <div id="background"></div>
-        <div id="example"></div>
-        <div id="healthUnderlay"></div>
-        <div id="health">HEALTH</div>
-        <div id="healthOverlay"></div>
+        <div id="start-screen">
+            <h1>ORGAN Trail</h1>
+            <p>Guts, Glory, and a whole lot of sticky icky bugs</p>
+            <button id="start-button">Start Game</button>
+        </div>
+    </div>
 
+    <div id="game-content" style="display: none;">
+        <div id="health-bar-container"></div>
+    </div>
 
-        <div id="settings">
-            <div id="pause"></div>
-            <div id="play"></div>
-            <div id="audioTrue"></div>
-            <div id="audioFalse"></div>
+    <div id="pause-screen" style="display: none;">
+        <h1>Game Paused</h1>
+        <button id="continue-button">Continue</button>
+        <button id="restart-button">Restart</button>
+    </div>
+
+    <div id="win-screen" style="display: none;">
+        <h1>Congratulations!</h1>
+        <p>You won the game!</p>
+    </div>
+
+    <div id="death-screen" style="display: none;">
+        <h1>Game Over</h1>
+        <p>You lost the game...</p>
+    </div>
+    
+    <div id="end-screen" style="display: none;">
+        <h1>End Screen</h1>
+    </div>
+    
+    <div id="play-screen">
+        <div id="camera">
+            <div id="app"></div>
         </div>
 
+        <div class="frame">
+            <div class="corner_topleft"></div>
+            <div class="corner_topright"></div>
+            <div class="corner_bottomleft"></div>
+            <div class="corner_bottomright"></div>
 
-    </div>
-    <div id="camera">
-        <div id="app"></div>
-    </div>
-
-    <div id="menu">
-        <div id="background"></div>
-        <div id="example"></div>
-        <div id="healthUnderlay"></div>
-        <div id="health">HEALTH</div>
-        <div id="ammo">AMMO</div>
-        <div id="healthOverlay"></div>
-        <!--
-            <div id="objectivePanel">
-                <div id="currentObjective">CURRENT OBJECTIVE:</div>
-                <p id="objectiveText">This is some random text to help show and display what it would look like if we were to have text showing what the current objective is to the user. It is a quite long piece of text so the font is slightly on the small side. I have no idea what to talk about but I need to fill in more space.</p>
-            </div>
-            -->
-    
-        <div id="settings">
-            <div id="pause"></div>
-            <div id="play"></div>
-            <div id="audioTrue"></div>
-            <div id="audioFalse"></div>
-        </div>
-    
-    
-    </div>
-
-    <div class="frame">
-        <div class="corner_topleft"></div>
-        <div class="corner_topright"></div>
-        <div class="corner_bottomleft"></div>
-        <div class="corner_bottomright"></div>
-        
-        
-        <div class="camera">
-            <div class="map pixel-art">
-                <div class="character" facing="down" walking="true">
-                    <div class="shadow pixel-art"></div>
-                    <div class="character_spritesheet pixel-art"></div>
+            <div class="camera">
+                <div class="map pixel-art">
+                    <div class="character" facing="down" walking="true">
+                        <div class="shadow pixel-art"></div>
+                        <div class="character_spritesheet pixel-art"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
 
     <!-- scripts -->
     <script src="./js/p5.js"></script>
-    <script src="./js/ui/App.js"></script>
+    <script src="./js/bs/UI.js"></script>
     <script src="./js/bs/Collider.js"></script>
     <script src="./js/bs/Ammunition.js"></script>
     <script src="./js/bs/Player.js"></script>
@@ -83,4 +78,5 @@
     <script src="./js/bs/Swarm.js"></script>
     <script src="./js/sketch.js"></script>
 </body>
+
 </html>

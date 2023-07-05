@@ -19,10 +19,10 @@ function setup() {
     rectMode(CENTER);
 }
 
-function draw() {
-    background(220);
-    player.draw();
-    swarms.draw();
-    player.move();
-    swarms.move();
-}
+// function draw() {
+//     background(220);
+//     player.draw();
+//     swarms.draw();
+//     player.move();
+//     swarms.move();
+// }
