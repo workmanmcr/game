@@ -1,10 +1,3 @@
-<<<<<<< HEAD:src/js/bs/Ammunition.js
-=======
-const ammunition = {
-    
-}
-
->>>>>>> 69177a992493abdb572fde436514d5c8d21bf0ea:js/bs/Ammunition.js
 class Ammunition {
     constructor({ x, y, angle, type }) {
         this.x = x;
