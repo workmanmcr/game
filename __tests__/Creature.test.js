@@ -77,4 +77,15 @@ describe("Creature", () => {
         expect(creature.health).toBe(health);
         expect(death).toBe(status);
     });
+
+    each([
+        ['', ],
+        ['spider' ],
+        ['wasp'],
+        ['hornet'],
+        ['scarab']
+    ]).test("%s should either pursue or ignore player at x=%s, y=%s", (type, x, y) => {
+        const creature = makeCreature({ x: 10, y: 10, type });
+        const player = { pos: { x, y } }
+    })
 });

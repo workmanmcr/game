@@ -1,7 +1,3 @@
-import App from './App';
-// import CollisionDetector from './CollisionDetector'
-import makeCreature from './Creature';
-
 class Swarm {
     constructor(params) {
         this.creatures = [];
@@ -25,7 +21,7 @@ class Swarm {
 
 function isNumber(coordinate) {
     return typeof coordinate === 'number' ?
-        coordinate : App.invalid_coordinate;
+        coordinate : app.invalid_coordinate;
 }
 
 /**
@@ -38,7 +34,7 @@ function isNumber(coordinate) {
  * @param {String} params.type : type of creature to spawn
  * @returns {Object} swarm
  */
-export default function makeSwarm(params) {
+function makeSwarm(params) {
     params.bases = params.hasOwnProperty('bases') ?
         Array.isArray(params.bases) ?
             params.bases.map(base => ({
@@ -47,9 +43,9 @@ export default function makeSwarm(params) {
             }))
             : [{
                 x: params.bases.hasOwnProperty('x') ?
-                    isNumber(params.bases.x) : App.invalid_coordinate,
+                    isNumber(params.bases.x) : app.invalid_coordinate,
                 y: params.bases.hasOwnProperty('y') ?
-                    isNumber(params.bases.y) : App.invalid_coordinate
+                    isNumber(params.bases.y) : app.invalid_coordinate
             }]
         : [];
 
@@ -60,15 +56,15 @@ export default function makeSwarm(params) {
     switch (params.type) {
         case 'spider':
             params.creatures = 1;
-            params.range = App.unit * 2;
+            params.range = app.unit * 2;
             break;
         case 'wasp':
             params.creatures = 3;
-            params.range = App.unit;
+            params.range = app.unit;
             break;
         case 'hornet':
             params.creatures = 4;
-            params.range = App.unit * 3;
+            params.range = app.unit * 3;
             break;
         case 'scarab':
             params.creatures = 20;
@@ -76,7 +72,7 @@ export default function makeSwarm(params) {
             break;
         default:
             params.creatures = 5;
-            params.range = App.unit / 2;
+            params.range = app.unit / 2;
     }
     
     return new Swarm(params);
