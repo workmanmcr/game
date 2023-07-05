@@ -1,5 +1,3 @@
-import App from './App';
-
 class Ammunition {
     constructor({ x, y, angle }) {
         this.x = x;
@@ -14,7 +12,7 @@ class Ammunition {
     }
 }
 
-export default function makeAmmunition(params) {
+function makeAmmunition(params) {
     params.x = params.hasOwnProperty('x')
         && typeof params.x === 'number' ?
         params.x : App.invalid_coordinate;

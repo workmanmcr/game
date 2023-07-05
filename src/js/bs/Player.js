@@ -5,7 +5,8 @@ class Player {
     this.dx = 0;
     this.speed = 2;
     this.pos = { x, y };
-    this.health = 3;
+    this.health = 5;
+    this.life = 1;
   } 
   // press A to move left, D to move right, W to move up, S to move down
   move() {
