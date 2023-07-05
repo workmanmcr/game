@@ -1,5 +1,5 @@
 // import each from 'jest-each';
-import Player from './../src/js/bs/Player.js';
+import Player from '../src/js/bs/Player.js';
 
 describe("Player", () => {
     test('it should create player class', () => {

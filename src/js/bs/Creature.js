@@ -1,5 +1,5 @@
 import App from './App';
-import makeSting from './Sting';
+import makeAmmunition from './Ammunition';
 
 // import CollisionDetector from './CollisionDetector'
 // change color to graphic when graphics used
@@ -12,20 +12,14 @@ class Creature {
         if (!params.hasOwnProperty('health'))
             params.health = 1;
         
-        if (!params.hasOwnProperty('size'))
-            params.size = 1;
-        
         if (!params.hasOwnProperty('color'))
             params.color = [0];
 
         this.pos = { x: params.x, y: params.y };
         this.dx = 0;
         this.dy = 0;
-        this.angle = 0;
         this.speed = params.speed;
         this.health = params.health;
-        
-        this.dimension = params.size * App.unit;
         this.color = params.color;
 
         this.stings = [];
@@ -46,7 +40,7 @@ class Creature {
     }
 
     shoot() {
-        this.stings.push(makeSting({
+        this.stings.push(makeAmmunition({
             x: this.pos.x,
             y: this.pos.y,
             angle: this.angle
@@ -62,7 +56,7 @@ class Creature {
 class Spider extends Creature {
     constructor(params) {
         super({ ...params,
-            speed: 3,
+            speed: 4,
             health: 3,
             color: [255, 0, 0]
         });
@@ -99,6 +93,14 @@ class Scarab extends Creature {
     }
 }
 
+const creatures = {
+    creature: (params) => new Creature(params),
+    spider: (params) => new Spider(params),
+    wasp: (params) => new Wasp(params),
+    hornet: (params) => new Hornet(params),
+    scarab: (params) => new Scarab(params)
+}
+
 export default function makeCreature(params) { 
     params.x = params.hasOwnProperty('x')
         && typeof params.x === 'number' ?
@@ -108,25 +110,7 @@ export default function makeCreature(params) {
         params.y : App.invalid_coordinate;
     const type = params.hasOwnProperty('type')
         && ['spider', 'wasp', 'hornet', 'scarab'].includes(params.type) ?
-        params.type : '';
+        params.type : 'creature';
     delete params.type;
-
-    let creature;
-    switch (type) {
-        case 'spider':
-            creature = new Spider(params);
-            break;
-        case 'wasp':
-            creature = new Wasp(params);
-            break;
-        case 'hornet':
-            creature = new Hornet(params);
-            break;
-        case 'scarab':
-            creature = new Scarab(params);
-            break;
-        default:
-            creature = new Creature(params);
-    }
-    return creature;
+    return creatures[type](params);
 }
