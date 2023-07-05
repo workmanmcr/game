@@ -2,23 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <title>Game: </title>
     <link rel="stylesheet" href="./css/fonts.css">
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/SpritesCamMap.css">
 </head>
 <body>
-    <div id="camera">
-        <div id="app"></div>
+    <div class="frame">
+        <div class="corner_topleft"></div>
+        <div class="corner_topright"></div>
+        <div class="corner_bottomleft"></div>
+        <div class="corner_bottomright"></div>
+        
+        
+        <div class="camera">
+            <div class="map pixel-art">
+                <div class="character" facing="down" walking="true">
+                    <div class="shadow pixel-art"></div>
+                    <div class="character_spritesheet pixel-art"></div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- scripts -->
-    <script src="./js/ui/p5.js"></script>
+    <!-- <script src="./js/ui/p5.js"></script>
     <script src="./js/ui/sketch.js"></script>
     <script src="./js/bs/Collider.js"></script>
     <script src="./js/bs/Ammunition.js"></script>
     <script src="./js/bs/Player.js"></script>
     <script src="./js/bs/Swarm.js"></script>
     <script src="./js/bs/Creature.js"></script>
-    <script src="./js/ui/Draw.js"></script>
+    <script src="./js/ui/Draw.js"></script> -->
 </body>
 </html>
