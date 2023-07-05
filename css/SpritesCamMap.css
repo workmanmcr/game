@@ -44,7 +44,10 @@ width: calc(var(--pixel-size) * 160);
 height: calc(var(--pixel-size) * 144);
 overflow: hidden;
 background: #61ddf7;
-position:relative;
+position:absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%,-50%);
 }
 
 .map {
