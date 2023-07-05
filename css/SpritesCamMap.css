@@ -31,14 +31,13 @@ justify-content: center;
     image-rendering: pixelated;
 }
 
-.frame {
-/* This is just for Pen decoration */
+/* .frame {
 width: calc(var(--pixel-size) * 160);
 height: calc(var(--pixel-size) * 144);
-outline: var(--pixel-size) solid #fff;
+outline: var(--pixel-size) solid #000000;
 z-index:1; 
 position:relative;
-}
+} */
 
 .camera {
 width: calc(var(--pixel-size) * 160);
