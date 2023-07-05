@@ -1,18 +1,16 @@
 class MapGenerator {
-    constructor(dimensions, granularity, tileSize, seed) {
-        this.dimensions = dimensions;
+    constructor(granularity, tileSize, seed) {
         this.seed = seed;
         noiseSeed(seed);
         this.granularity = granularity;
         this.tileSize = tileSize;
-        this.generateMap();
     }
 
     generateMap() {
         this.map = [];
-        for (let i = 0; i < this.dimensions[0]; i++) {
+        for (let i = 0; i < height / this.tileSize; i++) {
             this.map[i] = [];
-            for (let j = 0; j < this.dimensions[1]; j++) {
+            for (let j = 0; j < width / this.tileSize; j++) {
                 this.map[i][j] = noise(i / this.granularity, j / this.granularity);
             }
         }
@@ -31,16 +29,21 @@ class MapGenerator {
         else if (value < .7) {
             fill('darkgreen');
         }
-        else {
+        else if (value < .9) {
             fill('grey');
+        }
+        else {
+            fill('white');
         }
     }
 
     draw() {
-        for (let i = 0; i < this.dimensions[0]; i++) {
-            for (let j = 0; j < this.dimensions[1]; j++) {
-                this.setColor(this.map[i][j]);
-                rect(i * this.tileSize - width / 2, j * this.tileSize - height / 2, this.tileSize, this.tileSize);
+        noStroke()
+        for (let i = 0; i < height / this.tileSize; i++) {
+            for (let j = 0; j < width / this.tileSize; j++) {
+                const val = noise(i / this.granularity, j / this.granularity);
+                this.setColor(val);
+                rect(i * this.tileSize + this.tileSize / 2, j * this.tileSize + this.tileSize / 2, this.tileSize, this.tileSize);
             }
         }
     }
