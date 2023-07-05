@@ -11,25 +11,24 @@ export default class Player {
   move(p) {
     if (p.keyIsDown(65)) {
       this.dx = -1;
-      console.log("move left");
     }
     if (p.keyIsDown(83)) {
       this.dy = 1;
-      console.log("move down");
     }
     if (p.keyIsDown(87)) {
       this.dy = -1;
-      console.log("move up");
     }
     if (p.keyIsDown(68)) {
       this.dx = 1;
-      console.log("move right");
     }
     this.pos.x += this.dx * this.speed;
   }
   shoot(p) {
     if (p.keyIsDown(32)) {
-      console.log("Shoot");
+      this.stings.push(makeAmmunition({
+        x: this.pos.x,
+        y: this.pos.y,
+        angle: this.angle
+      }))
     }
-  }
-}
+  };
