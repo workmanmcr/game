@@ -1,7 +1,6 @@
 import App from './App';
 import makeAmmunition from './Ammunition';
 
-// import CollisionDetector from './CollisionDetector'
 // change color to graphic when graphics used
 
 class Creature {
@@ -19,6 +18,8 @@ class Creature {
         this.dx = 0;
         this.dy = 0;
         this.speed = params.speed;
+        this.angle = 0;
+        this.arc_angle = 0;
         this.health = params.health;
         this.color = params.color;
 
@@ -27,11 +28,25 @@ class Creature {
         this.base = {};
     }
 
-    move() {
+    getTarget(player) {
+        this.target = player.pos;
+    }
+
+    move(player, collider) {
+        this.target = getTarget(player);
+        this.angle = Math.atan2(this.target.y - this.pos.y, this.target.x - this.pos.x);
+        let distance = collider.dist(this.pos.x, this.pos.y, target.x, target.y);
+        if (distance > this.range + App.unit)
+            distance -= this.speed;
+
+        this.arc_angle += Math.PI / 45;
+        this.x = this.target.x + Math.cos(this.arc_angle) * distance;
+        this.y = this.target.y + Math.sin(this.arc_angle) * distance;
+        if(distance < this.range)
+            this.shoot();
+        
         /* 
             Check if creature has target: move towards target
-            Check Collision Detector
-            - if obstacle in way: move adjacent
 
             No target:
             Spider | Scarab - check if at base: return to base
@@ -65,11 +80,12 @@ class Spider extends Creature {
 
 class Wasp extends Creature {
     constructor(params) {
-        super({ ...params,
+        super({
+            ...params,
             speed: 3,
             health: 2,
             color: [255, 255, 0]
-        })
+        });
     }
 }
 
