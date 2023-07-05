@@ -1,5 +1,3 @@
-
-
 class Swarm {
     constructor(params) {
         this.creatures = [];
@@ -19,7 +17,7 @@ class Swarm {
     }
 
     move() {
-        const distance = dist(player.pos.x, player.pos.y)
+        const distance = dist(player.pos.x, player.pos.y, this.pos.x, this.pos.y);
     }
 }
 

@@ -27,7 +27,7 @@ const creatures = {
 
 class Creature {
     constructor(params) {
-        this.pos = { x: params.x, y: params.y };
+        this.pos = createVector(params.x, params.y);
         this.dx = 0;
         this.dy = 0;
         this.angle = 0;
@@ -40,25 +40,25 @@ class Creature {
         this.stings = [];
         this.target = {};
         this.base = {};
-    }
-
-    getTarget(player) {
-        this.target = player.pos;
+        this.range = app.unit * 30;
     }
 
     move() {
-        this.target = getTarget(player);
+        this.target = game.player.pos;
         this.angle = atan2(this.target.y - this.pos.y, this.target.x - this.pos.x);
-        let distance = dist(this.pos.x, this.pos.y, target.x, target.y);
-        if (distance > this.range + App.unit)
+        let distance = dist(this.pos.x, this.pos.y, this.target.x, this.target.y);
+        if (distance > this.range + app.unit)
             distance -= this.speed;
 
         this.arc_angle += Math.PI / 45;
         this.x = this.target.x + cos(this.arc_angle) * distance;
         this.y = this.target.y + sin(this.arc_angle) * distance;
 
-        if(distance < this.range)
+        if (distance < this.range) {
+            for (const sting of this.stings) 
             this.shoot();
+        }
+            
         
         /* 
             Check if creature has target: move towards target
@@ -67,13 +67,22 @@ class Creature {
             Spider | Scarab - check if at base: return to base
             Wasp | Hornet - circle base
         */
+        
+        for (const sting of this.stings)
+            sting.move();
+    }
+
+    update() {
+        let difference = p5.Vector.sub(player.pos, this.pos);
+        difference.limit(this.speed);
+        this.pos.add(difference);
     }
 
     draw() {
         fill(...this.color);
         noStroke();
         push();
-        translate(this.pos.x, this.pox.y);
+        translate(this.pos.x, this.pos.y);
         rotate(this.angle);
         rect(0, 0, app.unit, app.unit);
         pop();
@@ -88,7 +97,7 @@ class Creature {
             y: this.pos.y,
             angle: this.angle,
             type: 'sting'
-        }))
+        }));
     }
 
     hit() {
