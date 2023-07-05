@@ -1,5 +1,5 @@
 import App from './App';
-import makeSting from './Sting';
+import makeAmmunition from './Ammunition';
 
 // import CollisionDetector from './CollisionDetector'
 // change color to graphic when graphics used
@@ -24,8 +24,6 @@ class Creature {
         this.angle = 0;
         this.speed = params.speed;
         this.health = params.health;
-        
-        this.dimension = params.size * App.unit;
         this.color = params.color;
 
         this.stings = [];
@@ -46,7 +44,7 @@ class Creature {
     }
 
     shoot() {
-        this.stings.push(makeSting({
+        this.stings.push(makeAmmunition({
             x: this.pos.x,
             y: this.pos.y,
             angle: this.angle

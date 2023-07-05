@@ -8,7 +8,7 @@ describe("Creature", () => {
 
     each([
         [{
-            speed: 3,
+            speed: 4,
             health: 3,
             color: [255, 0, 0]
         }, 1, 1, 'spider'],
@@ -76,5 +76,5 @@ describe("Creature", () => {
         const death = creature.hit();
         expect(creature.health).toBe(health);
         expect(death).toBe(status);
-    })
+    });
 });

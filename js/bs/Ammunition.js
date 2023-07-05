@@ -1,11 +1,11 @@
 import App from './App';
 
-class Sting {
+class Ammunition {
     constructor({ x, y, angle }) {
         this.x = x;
         this.y = y;
         this.angle = angle;
-        this.speed = 16;
+        this.speed = App.unit;
     }
 
     move() {
@@ -14,7 +14,7 @@ class Sting {
     }
 }
 
-export default function makeSting(params) {
+export default function makeAmmunition(params) {
     params.x = params.hasOwnProperty('x')
         && typeof params.x === 'number' ?
         params.x : App.invalid_coordinate;
@@ -27,5 +27,5 @@ export default function makeSting(params) {
         && typeof params.angle === 'number' ?
         params.angle : 0;
     
-    return new Sting(params);
+    return new Ammunition(params);
 }
