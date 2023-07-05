@@ -1,28 +1,27 @@
-import Player from "../bs/Player";
 
-export const app = {
+
+const app = {
     setView(width, height) {
         this.width = width;
         this.height = height;
     }
 };
-
-export function sketch(p) {
-    p.setup = function () {
-        p.rectMode(p.CENTER);
-        p.createCanvas(app.width, app.height);
+function sketch() {
+    setup = function () {
+        rectMode(CENTER);
+        createCanvas(app.width, app.height);
     } ;
 
-    p.draw = function () {
+    draw = function () {
 <<<<<<< HEAD
-        p.background(0);
-        p.fill(255);
-        p.rect(32, 32, 20, 20);
+        background(0);
+        fill(255);
+        rect(32, 32, 20, 20);
     }
 =======
         const player = new Player(1, 1);
-        player.move(p);
-        player.shoot(p)
+        player.move();
+        player.shoot()
     };
 >>>>>>> 9f4cc0c8236557f922680a0de83234b32c511548
 }
