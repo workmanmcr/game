@@ -6,7 +6,6 @@
     <title>Game: </title>
     <!-- <link rel="stylesheet" href="./css/fonts.css"> -->
     <link rel="stylesheet" href="./css/styles.css"> 
-    <link rel="stylesheet" href="./css/SpritesCamMap.css">
 </head>
 <body>
 
@@ -34,22 +33,7 @@
     
     </div>
 
-    <div class="frame">
-        <div class="corner_topleft"></div>
-        <div class="corner_topright"></div>
-        <div class="corner_bottomleft"></div>
-        <div class="corner_bottomright"></div>
-        
-        
-        <div class="camera">
-            <div class="map pixel-art">
-                <div class="character" facing="down" walking="true">
-                    <div class="shadow pixel-art"></div>
-                    <div class="character_spritesheet pixel-art"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="canvas-container"></div>
 
     <!-- scripts -->
     <script src="./js/p5.js"></script>
@@ -59,6 +43,7 @@
     <script src="./js/bs/Player.js"></script>
     <script src="./js/bs/Creature.js"></script>
     <script src="./js/bs/Swarm.js"></script>
+    <script src="./js/bs/GameLoop.js"></script>
     <script src="./js/sketch.js"></script>
 </body>
 </html>

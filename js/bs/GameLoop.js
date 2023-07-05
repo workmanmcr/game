@@ -1,82 +1,136 @@
-var character = document.querySelector(".character");
-var map = document.querySelector(".map");
+let character;
+let map;
+let x = 90;
+let y = 34;
+let held_directions = [];
+const speed = 10;
 
-//start in the middle of the map
-var x = 90;
-var y = 34;
-var held_directions = []; //State of which arrow keys we are holding down
-var speed = 1; //How fast the character moves in pixels per frame
-
-const placeCharacter = () => {
-   
-   var pixelSize = parseInt(
-      getComputedStyle(document.documentElement).getPropertyValue('--pixel-size')
-   );
-   
-   const held_direction = held_directions[0];
-   if (held_direction) {
-      if (held_direction === directions.right) {x += speed;}
-      if (held_direction === directions.left) {x -= speed;}
-      if (held_direction === directions.down) {y += speed;}
-      if (held_direction === directions.up) {y -= speed;}
-      character.setAttribute("facing", held_direction);
-   }
-   character.setAttribute("walking", held_direction ? "true" : "false");
-   
-   //Limits (gives the illusion of walls)
-   var leftLimit = -8;
-   var rightLimit = (16 * 11)+8;
-   var topLimit = -8 + 32;
-   var bottomLimit = (16 * 7);
-   if (x < leftLimit) { x = leftLimit; }
-   if (x > rightLimit) { x = rightLimit; }
-   if (y < topLimit) { y = topLimit; }
-   if (y > bottomLimit) { y = bottomLimit; }
-   
-   
-   var camera_left = pixelSize * 66;
-   var camera_top = pixelSize * 42;
-   
-   map.style.transform = `translate3d( ${-x*pixelSize+camera_left}px, ${-y*pixelSize+camera_top}px, 0 )`;
-   character.style.transform = `translate3d( ${x*pixelSize}px, ${y*pixelSize}px, 0 )`;  
+function preload() {
+  // Preload any assets or data files here if needed
 }
 
+function setup() {
+  const canvas = createCanvas(2000, 1500);
+  canvas.parent("canvas-container");
 
-//Set up the game loop
-const step = () => {
-   placeCharacter();
-   window.requestAnimationFrame(() => {
-      step();
-   })
+  setupCharacter();
+
+  map = createGraphics(width, height);
+  map.background(0);
+  map.loadPixels();
+  for (let i = 0; i < width * height * 4; i += 4) {
+    map.pixels[i + 3] = 255;
+  }
+  map.updatePixels();
 }
-step(); //kick off the first step!
 
-
-
-/* Direction key state */
-const directions = {
-   up: "up",
-   down: "down",
-   left: "left",
-   right: "right",
+function setupCharacter() {
+  character = createGraphics(16, 16);
+  character.fill(255, 0, 0);
+  character.rect(0, 0, 16, 16);
 }
-const keys = {
-   38: directions.up,
-   37: directions.left,
-   39: directions.right,
-   40: directions.down,
-}
-document.addEventListener("keydown", (e) => {
-   var dir = keys[e.which];
-   if (dir && held_directions.indexOf(dir) === -1) {
-      held_directions.unshift(dir)
-   }
-})
 
-document.addEventListener("keyup", (e) => {
-   var dir = keys[e.which];
-   var index = held_directions.indexOf(dir);
-   if (index > -1) {
-      held_directions.splice(index, 1)
-   }
-});
+function draw() {
+  handleInput();
+  updateCharacter();
+  updateCamera();
+  drawScene();
+}
+
+function handleInput() {
+  held_directions = [];
+
+  if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
+    held_directions.push("up");
+  }
+  if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
+    held_directions.push("down");
+  }
+  if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
+    held_directions.push("left");
+  }
+  if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
+    held_directions.push("right");
+  }
+}
+
+function updateCharacter() {
+  const direction = held_directions[0];
+  if (direction) {
+    if (direction === "up") {
+      y -= speed;
+    } else if (direction === "down") {
+      y += speed;
+    } else if (direction === "left") {
+      x -= speed;
+    } else if (direction === "right") {
+      x += speed;
+    }
+  }
+}
+
+function updateCamera() {
+  const camera_left = max(0, x - width / 2);
+  const camera_top = max(0, y - height / 2);
+
+  map.background(0);
+  map.fill(255);
+  map.rect(x - camera_left, y - camera_top, 16, 16);
+}
+
+function drawScene() {
+  image(map, 0, 0);
+}
+
+function keyPressed() {
+  if (keyCode === UP_ARROW || keyCode === DOWN_ARROW || keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
+    return false;
+  }
+}
+
+function keyReleased() {
+  if (keyCode === UP_ARROW || keyCode === DOWN_ARROW || keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
+    return false;
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+// Initialize the p5.js sketch
+function initializeSketch() {
+  const canvasContainer = document.getElementById("canvas-container");
+  const canvasWidth = 2000;
+  const canvasHeight = 1500;
+
+  // Calculate the horizontal and vertical offsets
+  const horizontalOffset = (windowWidth - canvasWidth) / 2;
+  const verticalOffset = (windowHeight - canvasHeight) / 2;
+
+  // Set the CSS properties to center the canvas
+  canvasContainer.style.position = "absolute";
+  canvasContainer.style.left = horizontalOffset + "px";
+  canvasContainer.style.top = verticalOffset + "px";
+
+  const canvas = createCanvas(canvasWidth, canvasHeight);
+  canvas.parent(canvasContainer);
+
+  setupCharacter();
+
+  map = createGraphics(width, height);
+  map.background(0);
+  map.loadPixels();
+  for (let i = 0; i < width * height * 4; i += 4) {
+    map.pixels[i + 3] = 255;
+  }
+  map.updatePixels();
+}
+
+// Attach p5.js functions to the window object
+window.preload = preload;
+window.setup = initializeSketch;
+window.draw = draw;
+window.keyPressed = keyPressed;
+window.keyReleased = keyReleased;
+window.windowResized = windowResized;
