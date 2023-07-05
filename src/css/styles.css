@@ -78,6 +78,37 @@ body {
   border-radius: 0px 0px 10px 10px;
   font-size: 10px;
 }
+/*
+#objectivePanel {
+  position: absolute;
+  width: 100px;
+  height: 280px;
+  background-color: white;
+  left: 67%;
+  top: 53.2%;
+  transform: translate(-50%,-50%);
+  border-radius: 0px 0px 100px 0px;
+}
+
+#currentObjective {
+  color: black;
+  position: absolute;
+  font-family: Bebas Neue;
+  font-weight: bold;
+  background-color: rgb(16, 190, 0);
+  width: 100%;
+}
+
+#objectiveText {
+  position: absolute;
+  top: 20px;
+  font-size: 10px;
+  font-family: oswald;
+  font-weight: 400;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+*/
 
 #example {
   position: absolute;
