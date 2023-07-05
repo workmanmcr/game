@@ -52,16 +52,17 @@ class Creature {
         this.target = player.pos;
     }
 
-    move(player, collider) {
+    move() {
         this.target = getTarget(player);
-        this.angle = Math.atan2(this.target.y - this.pos.y, this.target.x - this.pos.x);
-        let distance = collider.dist(this.pos.x, this.pos.y, target.x, target.y);
+        this.angle = atan2(this.target.y - this.pos.y, this.target.x - this.pos.x);
+        let distance = dist(this.pos.x, this.pos.y, target.x, target.y);
         if (distance > this.range + App.unit)
             distance -= this.speed;
 
         this.arc_angle += Math.PI / 45;
-        this.x = this.target.x + Math.cos(this.arc_angle) * distance;
-        this.y = this.target.y + Math.sin(this.arc_angle) * distance;
+        this.x = this.target.x + cos(this.arc_angle) * distance;
+        this.y = this.target.y + sin(this.arc_angle) * distance;
+
         if(distance < this.range)
             this.shoot();
         
@@ -83,17 +84,16 @@ class Creature {
         rect(0, 0, app.unit, app.unit);
         pop();
 
-        for (let sting of this.stings) {
-            sting.move();
+        for (let sting of this.stings) 
             sting.draw();
-        }
     }
 
     shoot() {
-        this.stings.push(makeAmmunition({
+        this.stings.push(new Ammunition({
             x: this.pos.x,
             y: this.pos.y,
-            angle: this.angle
+            angle: this.angle,
+            type: 'sting'
         }))
     }
 
