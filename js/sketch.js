@@ -1,28 +1,25 @@
 const app = {
     unit: 16,
     default_speed: 2,
-    invalid_coordinate: -100,
-    setView(width, height) {
-        this.width = width;
-        this.height = height;
-    }
+    invalid_coordinate: -100
 }
 
-const game_pieces = {
+const game = {
     player: {},
     swarms: {}
 }
-app.setView(window.innerWidth, window.innerHeight);
 
-function setup() { 
+function setup() {
     createCanvas(400, 400);
     rectMode(CENTER);
+    game.player = new Player(0, 0);
 }
 
 function draw() {
     background(220);
-    player.draw();
-    swarms.draw();
-    player.move();
-    swarms.move();
+    game.player.draw();
+    game.player.move();
 }
+
+
+

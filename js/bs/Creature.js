@@ -13,7 +13,13 @@ const creatures = {
             params.y : app.invalid_coordinate;
         const type = params.hasOwnProperty('type')
             && ['spider', 'wasp', 'hornet', 'scarab'].includes(params.type) ?
-            params.type : '';
+            params.type : 'creature';
+        if (type === 'creature') {
+            params.speed = app.default_speed;
+            params.health = 1;
+            params.size = 1;
+            params.color = [0];
+        }
         delete params.type;
         return creatures[type](params);
     }
@@ -21,18 +27,6 @@ const creatures = {
 
 class Creature {
     constructor(params) {
-        if (!params.hasOwnProperty('speed'))
-            params.speed = App.default_speed;
-        
-        if (!params.hasOwnProperty('health'))
-            params.health = 1;
-        
-        if (!params.hasOwnProperty('size'))
-            params.size = 1;
-        
-        if (!params.hasOwnProperty('color'))
-            params.color = [0];
-
         this.pos = { x: params.x, y: params.y };
         this.dx = 0;
         this.dy = 0;

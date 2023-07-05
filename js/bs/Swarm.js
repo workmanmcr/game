@@ -1,3 +1,5 @@
+
+
 class Swarm {
     constructor(params) {
         this.creatures = [];
@@ -16,7 +18,9 @@ class Swarm {
         this.range = params.range;
     }
 
-    move() {}
+    move() {
+        const distance = dist(player.pos.x, player.pos.y)
+    }
 }
 
 function isNumber(coordinate) {
