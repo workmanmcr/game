@@ -1,7 +1,23 @@
-import App from './App';
-import makeAmmunition from './Ammunition';
-
-// change color to graphic when graphics used
+const creatures = {
+    spider: (params) => new Spider(params),
+    wasp: (params) => new Wasp(params),
+    hornet: (params) => new Hornet(params),
+    scarab: (params) => new Scarab(params),
+    creature: (params) => new Creature(params),
+    makeCreature: (params) => {
+        params.x = params.hasOwnProperty('x')
+            && typeof params.x === 'number' ?
+            params.x : app.invalid_coordinate;  
+        params.y = params.hasOwnProperty('y')
+            && typeof params.y === 'number' ?
+            params.y : app.invalid_coordinate;
+        const type = params.hasOwnProperty('type')
+            && ['spider', 'wasp', 'hornet', 'scarab'].includes(params.type) ?
+            params.type : '';
+        delete params.type;
+        return creatures[type](params);
+    }
+};
 
 class Creature {
     constructor(params) {
@@ -58,6 +74,21 @@ class Creature {
         */
     }
 
+    draw() {
+        fill(...this.color);
+        noStroke();
+        push();
+        translate(this.pos.x, this.pox.y);
+        rotate(this.angle);
+        rect(0, 0, app.unit, app.unit);
+        pop();
+
+        for (let sting of this.stings) {
+            sting.move();
+            sting.draw();
+        }
+    }
+
     shoot() {
         this.stings.push(makeAmmunition({
             x: this.pos.x,
@@ -111,36 +142,4 @@ class Scarab extends Creature {
             color: [128, 0, 128]
         })
     }
-}
-
-export default function makeCreature(params) { 
-    params.x = params.hasOwnProperty('x')
-        && typeof params.x === 'number' ?
-        params.x : App.invalid_coordinate;  
-    params.y = params.hasOwnProperty('y')
-        && typeof params.y === 'number' ?
-        params.y : App.invalid_coordinate;
-    const type = params.hasOwnProperty('type')
-        && ['spider', 'wasp', 'hornet', 'scarab'].includes(params.type) ?
-        params.type : '';
-    delete params.type;
-
-    let creature;
-    switch (type) {
-        case 'spider':
-            creature = new Spider(params);
-            break;
-        case 'wasp':
-            creature = new Wasp(params);
-            break;
-        case 'hornet':
-            creature = new Hornet(params);
-            break;
-        case 'scarab':
-            creature = new Scarab(params);
-            break;
-        default:
-            creature = new Creature(params);
-    }
-    return creature;
 }
