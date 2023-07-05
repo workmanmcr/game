@@ -7,3 +7,41 @@
 body {
   background-color: #151515;
 }
+
+#menu {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(10px) brightness(90%) contrast(100%);
+
+}
+
+#background {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 500px; /*Set the width and height to be @ 30px wider/taller than the canvas*/
+  height: 235px;
+  background-color: rgb(0, 0, 0); /* Change this*/
+  border-radius: 10px;
+}
+
+#health {
+  position: absolute;
+  width: 300px;
+  height: 55px;
+  background-color: rgba(255, 0, 0, 0);
+  border-radius: 0px 0px 20px 0px;
+}
+
+#example {
+  position: absolute;
+  width: 255px;
+  height: 255px;
+  background-color: #0E204D;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+
+}
