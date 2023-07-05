@@ -28,7 +28,7 @@ class Player {
     const mouseAngle = Math.atan2(mouseY - this.pos.y, mouseX - this.pos.x);
     this.angle = mouseAngle;
   }
-  // press J and L to aim and spacebar to shoot or use mouse to aim and left click to shoot.
+  // press J and L to aim and K to shoot or use mouse to aim and left click to shoot.
   shoot() {
     if (keyIsDown(74)) { 
       this.angle -= 0.1; 
