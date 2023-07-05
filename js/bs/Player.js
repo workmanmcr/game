@@ -23,6 +23,7 @@ class Player {
       this.dx = 1;
     }
     this.pos.x += this.dx * this.speed;
+    this.pos.y += this.dy * this.speed;
   }
   updateAim() {
     const mouseAngle = Math.atan2(mouseY - this.pos.y, mouseX - this.pos.x);
@@ -48,6 +49,7 @@ class Player {
       push();
       translate(this.pos.x, this.pos.y);
       rotate(this.angle);
+      rect(0, 0, app.unit, app.unit);
       pop();
   }
 };
