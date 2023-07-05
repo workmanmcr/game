@@ -1,5 +1,5 @@
 import p5 from 'p5';
-import app from './js/ui/sketch';
+import {app, sketch} from './js/ui/sketch';
 import './css/fonts.css';
 import './css/styles.css';
 
