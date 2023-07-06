@@ -19,8 +19,8 @@ let playerImage;
 let openedMouth
 
 function preload() {
-    playerImage = loadImage('./assets/img/Shawn/Closed-Mouth.png')
-    openedMouth = loadImage('./assets/img/Shawn/Open-Mouth.png')
+    playerImage = loadImage('./assets/img/Shawn/PixeledClosed.png')
+    openedMouth = loadImage('./assets/img/Shawn/PixeledOpen.png')
     
 }
 

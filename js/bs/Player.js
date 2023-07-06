@@ -7,9 +7,9 @@ class Player {
         this.bullets = [];
         this.health = app.max_health;
         this.life = 1;
-        this.closedMouth = loadImage('../assets/img/Shawn/Closed-Mouth.png')
-        this.openedMouth = loadImage('../assets/img/Shawn/Open-Mouth.png')
-        this.playerImage = loadImage('../assets/img/Shawn/Closed-Mouth.png')
+        this.closedMouth = loadImage('../assets/img/Shawn/PixeledClosed.png')
+        this.openedMouth = loadImage('../assets/img/Shawn/PixeledOpen.png')
+        this.playerImage = loadImage('../assets/img/Shawn/PixeledClosed.png')
     };
 
     // press A to move left, D to move right, W to move up, S to move down
