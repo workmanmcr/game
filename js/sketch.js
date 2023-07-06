@@ -22,16 +22,11 @@ const images = {
         hornet: {},
         scarab: {},
         creature: {}
+    },
+    shawn: {
+        open: {},
+        closed: {}
     }
-}
-
-let playerImage;
-let openedMouth
-
-function preload() {
-    playerImage = loadImage('./assets/img/Shawn/PixeledClosed.png')
-    openedMouth = loadImage('./assets/img/Shawn/PixeledOpen.png')
-    
 }
 
 const container = document.querySelector('.container');
@@ -45,6 +40,8 @@ function preload() {
     images.robots.hornet = loadImage('../assets/Hornet.png');
     images.robots.scarab = loadImage('../assets/Scarab.png');
     images.robots.creature = loadImage('../assets/Centipede.png');
+    images.shawn.open = loadImage('../assets/PixeledOpen.png');
+    images.shawn.closed = loadImage('../assets/PixeledClosed.png');
 }
 
 function setup() { 

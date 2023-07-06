@@ -6,9 +6,7 @@ class Player {
         this.bullets = [];
         this.health = app.max_health;
         this.life = 1;
-        this.closedMouth = loadImage('../assets/img/Shawn/PixeledClosed.png')
-        this.openedMouth = loadImage('../assets/img/Shawn/PixeledOpen.png')
-        this.playerImage = loadImage('../assets/img/Shawn/PixeledClosed.png')
+        this.graphic = images.shawn.closed;
     };
 
     // press A to move left, D to move right, W to move up, S to move down
@@ -39,7 +37,7 @@ class Player {
 
         if (keyIsDown(75) || mouseIsPressed) {
             this.shoot();
-        } else { this.playerImage = this.closedMouth}
+        } else { this.graphic = images.shawn.closed }
 
         for (const bullet of this.bullets)
             bullet.move();
@@ -51,10 +49,10 @@ class Player {
     }
     // press J and L to aim and spacebar to shoot or use mouse to aim and left click to shoot.
     shoot() {
-        this.playerImage = this.openedMouth;
+        this.graphic = images.shawn.open;
         this.bullets.push(makeAmmunition({
             x: this.pos.x,
-            y: this.pos.y,
+            y: this.pos.y + app.unit / 1.5,
             angle: this.angle,
             type: 'bullet'
         }))
@@ -69,7 +67,7 @@ class Player {
         push();
         translate(this.pos.x, this.pos.y);
         rotate(this.angle);
-        image(this.playerImage, -app.unit / 2, -app.unit / 2, app.unit, app.unit);
+        image(this.graphic, - app.unit / 2, - app.unit / 2, app.unit * 2, app.unit * 2);
         pop();
 
         for (const bullet of this.bullets)
