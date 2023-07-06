@@ -9,9 +9,9 @@ const game = {
     map_width: 0,
     map_height: 0,
     map_pos_x: 0,
+    map_pos_y: 0,
     player: {},
     swarm: [],
-    tiles: {},
     buffer: ''
 }
 
@@ -31,8 +31,8 @@ const images = {
 }
 
 const container = document.querySelector('.container');
-//const width = container.clientWidth;
-//const height = container.clientHeight;
+const width = container.clientWidth;
+const height = container.clientHeight;
 
 function preload() {
     images.tiles = loadImage('../assets/tileset_arranged.png');
@@ -46,15 +46,14 @@ function preload() {
 }
 
 function setup() {
-    game.map_width = width * 4 + width / 2;
-    game.map_height = height;
+    game.map_width = 10000;
+    game.map_height = windowHeight;
 
     createCanvas(windowWidth, windowHeight);
     rectMode(CENTER);
 
     game.buffer = createGraphics(game.map_width, game.map_height);
     const map = new MapGenerator(100, 1);
-    map.generateMap();
     map.draw(game.buffer);
 
     game.player = new Player(app.unit, app.unit);
@@ -90,12 +89,6 @@ function draw() {
     for (const creature of swarm)
         creature.draw();
     player.move();
-
-    if (player.pos.x > width / 2 && player.pos.x < game.map_width - width / 2) {
-        const canvas = document.querySelector('main');
-        canvas.style.transform = `translateX(-${player.pos.x - width / 2}px)`;
-        console.log(canvas.style.transform);
-    }
 
     for (const creature of game.swarm)
         creature.move();

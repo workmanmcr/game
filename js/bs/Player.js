@@ -11,9 +11,13 @@ class Player {
 
     // press A to move left, D to move right, W to move up, S to move down
     move() {
-        if ((keyIsDown(65) || keyIsDown(LEFT_ARROW))
-            && this.pos.x - this.speed - app.unit / 2 >= 0) {
-            this.pos.x -= this.speed;
+        if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) {
+            if (this.pos.x - this.speed - app.unit / 2 >= 0) {
+                this.pos.x -= this.speed;
+            }
+            else {
+                game.map_pos_x = Math.max(game.map_pos_x - this.speed, 0);
+            }
         }
         if ((keyIsDown(83) || keyIsDown(DOWN_ARROW))
             && this.pos.y + this.speed + app.unit / 2 <= game.map_height) {
@@ -23,9 +27,13 @@ class Player {
             && this.pos.y - this.speed - app.unit / 2 >= 0) {
             this.pos.y -= this.speed;
         }
-        if ((keyIsDown(68) || keyIsDown(RIGHT_ARROW))
-            && this.pos.x + this.speed + app.unit / 2 <= game.map_width) {
-            this.pos.x += this.speed;
+        if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) {
+            if (this.pos.x + this.speed + app.unit / 2 < width / 2) {
+                this.pos.x += this.speed;
+            }
+            else {
+                game.map_pos_x = Math.min(game.map_pos_x + this.speed, game.map_width - width);
+            }
         }
 
         if (keyIsDown(74)) {
