@@ -4,6 +4,7 @@ const ammunition = {
 
 class Ammunition {
     constructor({ x, y, angle, type }) {
+        this.pos = createVector(x, y);
         this.x = x;
         this.y = y;
         this.angle = angle;
@@ -12,24 +13,23 @@ class Ammunition {
     }
 
     move() {
-        this.x += this.speed * Math.cos(this.angle);
-        this.y += this.speed * Math.sin(this.angle);
+        this.pos.add(this.speed * Math.cos(this.angle), this.speed * Math.sin(this.angle));
     }
 
     draw() {
         const length = app.unit / 4;
-        if (type === 'bullet') {
+        if (this.type === 'bullet') {
             fill(0);
             noStroke();
-            circle(this.x, this.y, length);
+            circle(this.pos.x, this.pos.y, length);
         }
         else {
             noFill();
             stroke(0);
-            strokeWeight(3);
+            strokeWeight(2);
             const half_x = length * Math.cos(this.angle);
             const half_y = length * Math.sin(this.angle);
-            line(this.x + half_x, this.y + half_y, this.x - half_x, this.y - half_y);
+            line(this.pos.x + half_x, this.pos.y + half_y, this.pos.x - half_x, this.pos.y - half_y);
         }
     }
 }

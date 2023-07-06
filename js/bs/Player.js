@@ -1,4 +1,4 @@
-export default class Player {
+class Player {
   constructor(x, y) {
     this.size = 1;
     this.dy = 0;
@@ -22,32 +22,36 @@ export default class Player {
     if (keyIsDown(68)) {
       this.dx = 1;
     }
-    this.pos.x += this.dx * this.speed;
-  }
-  updateAim() {
-    const mouseAngle = Math.atan2(mouseY - this.pos.y, mouseX - this.pos.x);
-    this.angle = mouseAngle;
-  }
-  // press J and L to aim and spacebar to shoot or use mouse to aim and left click to shoot.
-  shoot() {
-    if (keyIsDown(74)) { 
-      this.angle -= 0.1; 
+
+    updateAim() {
+        const mouseAngle = Math.atan2(mouseY - this.pos.y, mouseX - this.pos.x);
+        this.angle = mouseAngle;
     }
-    if (keyIsDown(76)) { 
-      this.angle += 0.1; 
+    // press J and L to aim and spacebar to shoot or use mouse to aim and left click to shoot.
+    shoot() {
+        this.graphic = images.shawn.open;
+        this.bullets.push(makeAmmunition({
+            x: this.pos.x,
+            y: this.pos.y + app.unit / 1.5,
+            angle: this.angle,
+            type: 'bullet'
+        }))
     }
-    if (keyIsDown(75) || mouseIsPressed) {
-      this.stings.push(makeAmmunition({
-        x: this.pos.x,
-        y: this.pos.y,
-        angle: this.angle
-      }))
+
+    hit() {
+        this.health--;
+        return this.health === 0;
     }
-  }
-  draw() {
-      push();
-      translate(this.pos.x, this.pos.y);
-      rotate(this.angle);
-      pop();
-  }
+
+    draw() {
+        push();
+        translate(this.pos.x, this.pos.y);
+        rotate(this.angle);
+        image(this.graphic, - app.unit / 2, - app.unit / 2, app.unit * 2, app.unit * 2);
+        pop();
+
+        for (const bullet of this.bullets)
+            bullet.draw();
+    }
 };
+

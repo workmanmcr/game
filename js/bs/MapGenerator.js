@@ -1,17 +1,45 @@
 class MapGenerator {
-    constructor(dimensions, seed) {
-        [this.i, this.j] = dimensions;
+    constructor(granularity, seed) {
+        this.seed = seed;
+        noiseSeed(seed);
+        this.granularity = granularity;
     }
 
-    addNoise() {
-        noiseSeed(1);
-        let map = [];
-        for (let i = 0; i < this.i; i++) {
-            map[i] = [];
-            for (let j = 0; j < this.j; j++) {
-                map[i][j] = noise(i, j);
+    generateMap() {
+        this.map = [];
+        for (let i = 0; i < game.map_height / app.unit; i++) {
+            this.map[i] = [];
+            for (let j = 0; j < game.map_width / app.unit; j++) {
+                this.map[i][j] = noise(i / this.granularity, j / this.granularity);
             }
         }
-        return map;
+    }
+
+    draw(buffer) {
+        noStroke();
+        const { tiles } = images;
+        for (let i = 0; i < game.map_height / app.unit; i++) {
+            for (let j = 0; j < game.map_width / app.unit; j++) {
+                const val = noise(i / this.granularity, j / this.granularity);
+                if (val < .3) {
+                    buffer.image(tiles, j * app.unit, i * app.unit, app.unit, app.unit, 0, 0, 16, 16);
+                }
+                else if (val < .4) {
+                    buffer.image(tiles, j * app.unit, i * app.unit, app.unit, app.unit, 16, 0, 16, 16);
+                }
+                else if (val < .5) {
+                    buffer.image(tiles, j * app.unit, i * app.unit, app.unit, app.unit, 0, 16, 16, 16);
+                }
+                else if (val < .7) {
+                    buffer.image(tiles, j * app.unit, i * app.unit, app.unit, app.unit, 16, 16, 16, 16);
+                }
+                else if (val < .9) {
+                    buffer.image(tiles, j * app.unit, i * app.unit, app.unit, app.unit, 0, 32, 16, 16);
+                }
+                else {
+                    buffer.image(tiles, o, j, app.unit, app.unit, 16, 32, 16, 16);
+                }
+            }
+        }
     }
 }

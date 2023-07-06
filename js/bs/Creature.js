@@ -11,60 +11,54 @@ const creatures = {
         params.y = params.hasOwnProperty('y')
             && typeof params.y === 'number' ?
             params.y : app.invalid_coordinate;
-        const type = params.hasOwnProperty('type')
+        params.type = params.hasOwnProperty('type')
             && ['spider', 'wasp', 'hornet', 'scarab'].includes(params.type) ?
-            params.type : '';
-        delete params.type;
-        return creatures[type](params);
+            params.type : 'creature';
+        if (params.type === 'creature') {
+            params.speed = app.default_speed;
+            params.health = 1;
+            params.color = [0];
+        }
+        return creatures[params.type](params);
     }
 };
 
 class Creature {
     constructor(params) {
-        if (!params.hasOwnProperty('speed'))
-            params.speed = App.default_speed;
-        
-        if (!params.hasOwnProperty('health'))
-            params.health = 1;
-        
-        if (!params.hasOwnProperty('size'))
-            params.size = 1;
-        
-        if (!params.hasOwnProperty('color'))
-            params.color = [0];
-
-        this.pos = { x: params.x, y: params.y };
-        this.dx = 0;
-        this.dy = 0;
+        this.pos = createVector(params.x, params.y);
         this.angle = 0;
+        this.distance = 0;
         this.speed = params.speed;
         this.angle = 0;
         this.arc_angle = 0;
         this.health = params.health;
-        this.color = params.color;
+        this.graphic = params.type;
 
         this.stings = [];
-        this.target = {};
-        this.base = {};
-    }
-
-    getTarget(player) {
-        this.target = player.pos;
+        this.base = createVector(params.x, params.y);
+        this.radius = app.unit * 2;
     }
 
     move() {
-        this.target = getTarget(player);
-        this.angle = atan2(this.target.y - this.pos.y, this.target.x - this.pos.x);
-        let distance = dist(this.pos.x, this.pos.y, target.x, target.y);
-        if (distance > this.range + App.unit)
-            distance -= this.speed;
+        const { player } = game;
+        
+        // this.distance = player.pos.dist(this.pos);
+        this.angle = atan2(player.pos.y - this.pos.y, player.pos.x - this.pos.x);
 
-        this.arc_angle += Math.PI / 45;
-        this.x = this.target.x + cos(this.arc_angle) * distance;
-        this.y = this.target.y + sin(this.arc_angle) * distance;
+        // if (this.pos.dist(player.pos) > app.unit * 3 || player.pos.dist(this.last_target) > 0) {
+        //     this.distance -= this.speed;
+        //     this.arc_angle = this.angle;
+        // }
+        // else {
+        //     this.arc_angle += Math.PI / 90;
+        //     this.distance = app.unit * 3;
+        // } 
 
-        if(distance < this.range)
-            this.shoot();
+        // this.pos = createVector(player.pos.x + cos(this.arc_angle) * this.distance, player.pos.y + sin(this.arc_angle) * this.distance);
+        
+        // this.pos.add(cos(this.angle) * this.speed, sin(this.angle) * this.speed);
+
+        // this.last_target = player.pos;
         
         /* 
             Check if creature has target: move towards target
@@ -73,15 +67,23 @@ class Creature {
             Spider | Scarab - check if at base: return to base
             Wasp | Hornet - circle base
         */
+        
+        for (const sting of this.stings)
+            sting.move();
+    }
+
+    update() {
+        let difference = p5.Vector.sub(player.pos, this.pos);
+        difference.limit(this.speed);
+        this.pos.add(difference);
     }
 
     draw() {
-        fill(...this.color);
         noStroke();
         push();
-        translate(this.pos.x, this.pox.y);
+        translate(this.pos.x, this.pos.y);
         rotate(this.angle);
-        rect(0, 0, app.unit, app.unit);
+        image(images.robots[this.graphic], 0, 0, app.unit, app.unit, 0, 0, 16, 16);
         pop();
 
         for (let sting of this.stings) 
@@ -94,7 +96,7 @@ class Creature {
             y: this.pos.y,
             angle: this.angle,
             type: 'sting'
-        }))
+        }));
     }
 
     hit() {
@@ -106,8 +108,8 @@ class Creature {
 class Spider extends Creature {
     constructor(params) {
         super({ ...params,
-            speed: 3,
-            health: 3,
+            speed: app.default_speed * 2,
+            health: 15,
             color: [255, 0, 0]
         });
     }
@@ -117,8 +119,8 @@ class Wasp extends Creature {
     constructor(params) {
         super({
             ...params,
-            speed: 3,
-            health: 2,
+            speed: app.default_speed,
+            health: 10,
             color: [255, 255, 0]
         });
     }
@@ -127,8 +129,8 @@ class Wasp extends Creature {
 class Hornet extends Creature {
     constructor(params) {
         super({ ...params,
-            speed: 3,
-            health: 4,
+            speed: app.default_speed,
+            health: 20,
             color: [160, 82, 45]
         })
     }
@@ -137,8 +139,8 @@ class Hornet extends Creature {
 class Scarab extends Creature {
     constructor(params) {
         super({ ...params,
-            speed: 3,
-            health: 2,
+            speed: app.default_speed * 1.5,
+            health: 5,
             color: [128, 0, 128]
         })
     }

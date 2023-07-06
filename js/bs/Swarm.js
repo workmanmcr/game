@@ -13,10 +13,7 @@ export default class Swarm {
                 this.creatures[i][j].base = base;
             }
         }
-        this.range = params.range;
     }
-
-    move() {}
 }
 
 function isNumber(coordinate) {
