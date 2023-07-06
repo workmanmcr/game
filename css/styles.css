@@ -24,7 +24,7 @@ body {
   z-index: 200;
 }
 
-#menu img {
+.controlsImage {
   position: absolute;
   width: 350px;
   top: 450px;
