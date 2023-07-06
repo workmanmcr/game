@@ -8,6 +8,7 @@ window.addEventListener("load", function () {
   const winScreen = document.getElementById("win-screen");
   const deathScreen = document.getElementById("death-screen");
   const healthBar = document.getElementById("health-bar");
+  const healthBarBack = document.getElementById("health-bar-container");
   const backBlur = document.querySelector(".backBlur");
 
   let isGameActive = false;
@@ -33,6 +34,8 @@ window.addEventListener("load", function () {
     gameContent.style.display = "block";
     backBlur.style.display = "none";
     pauseButton.style.display = "block";
+    healthBar.style.display = "block";
+    healthBarBack.style.display = "block";
     isGameActive = true;
   }
 
@@ -82,6 +85,8 @@ window.addEventListener("load", function () {
   winScreen.style.display = "none";
   deathScreen.style.display = "none";
   pauseButton.style.display = "none";
+  healthBar.style.display = "none";
+  healthBarBack.style.display = "none";
 
   startButton.addEventListener("click", function () {
     activateGame();
