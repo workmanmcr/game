@@ -2,9 +2,31 @@ const app = {
     unit: 32,
     default_speed: 5,
     invalid_coordinate: -100,
-    setView(width, height) {
-        this.width = width;
-        this.height = height;
+    max_health: 20
+}
+
+const game = {
+    map_width: 0,
+    map_height: 0,
+    map_pos_x: 0,
+    map_pos_y: 0,
+    player: {},
+    swarm: [],
+    buffer: ''
+}
+
+const images = {
+    tiles: {},
+    robots: {
+        spider: {},
+        wasp: {},
+        hornet: {},
+        scarab: {},
+        creature: {}
+    },
+    shawn: {
+        open: {},
+        closed: {}
     }
 }
 
@@ -23,16 +45,15 @@ function preload() {
     images.shawn.closed = loadImage('../assets/PixeledClosed.png');
 }
 
-function setup() { 
-    game.map_width = width * 4 + width / 2;
-    game.map_height = height;
+function setup() {
+    game.map_width = 10000;
+    game.map_height = windowHeight;
 
-    createCanvas(game.map_width, game.map_height);
+    createCanvas(windowWidth, windowHeight);
     rectMode(CENTER);
 
     game.buffer = createGraphics(game.map_width, game.map_height);
     const map = new MapGenerator(100, 1);
-    map.generateMap();
     map.draw(game.buffer);
 
     game.player = new Player(app.unit, app.unit);
@@ -60,21 +81,14 @@ function setup() {
 
 function draw() {
     background(220);
-    
-    const { player, swarm} = game;
-    image(game.buffer, 0, 0);
+    const { player, swarm } = game;
+    image(game.buffer, 0, 0, width, height, game.map_pos_x, 0, width, height);
 
     if (player.life)
         player.draw();
     for (const creature of swarm)
         creature.draw();
     player.move();
-
-    if (player.pos.x > width / 2 && player.pos.x < game.map_width - width / 2) {
-        const canvas = document.querySelector('main');
-        canvas.style.transform = `translateX(-${player.pos.x - width / 2}px)`;
-        console.log(canvas.style.transform);
-    }
 
     for (const creature of game.swarm)
         creature.move();
