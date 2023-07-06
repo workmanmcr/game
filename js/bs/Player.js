@@ -47,6 +47,7 @@ class Player {
     }
     // press J and L to aim and spacebar to shoot or use mouse to aim and left click to shoot.
     shoot() {
+        this.playerImage = this.openedMouth;
         this.bullets.push(makeAmmunition({
             x: this.pos.x,
             y: this.pos.y,
