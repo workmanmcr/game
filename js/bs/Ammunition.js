@@ -14,7 +14,7 @@ class Ammunition {
 
     draw() {
         const length = app.unit / 4;
-        if (type === 'bullet') {
+        if (this.type === 'bullet') {
             fill(0);
             noStroke();
             circle(this.x, this.y, length);
