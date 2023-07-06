@@ -1,75 +1,144 @@
 * {
-    padding: 0;
-    margin: 0;
-    border: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
 body {
   background-color: #151515;
+  overflow: hidden;
 }
 
-.container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+.backBlur {
+  backdrop-filter: blur(15px) brightness(50%) contrast(100%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
 }
 
 #menu {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(10px) brightness(90%) contrast(100%);
-
+  z-index: 200;
 }
 
-#background {
+.controlsImage {
+  position: absolute;
+  width: 350px;
+  top: 450px;
+}
+
+#health-bar-container {
+  position: absolute;
+  left: 50.20%;
+  top: 82.5%;
+  transform: translate(-50%,-50%);
+  width: 640px;
+  height: 30px;
+  background-color: #000000;
+  border-radius: 0px 0px 20px 20px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+#health-bar {
+  position: absolute;
+  transform: translate(-50%,-50%);
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: #f00;
+  border-radius: 0px 0px 20px 20px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+#start-screen {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+  color: #fff;
+  font-family:Arial, sans-serif;
+  text-align: center;
+  width: 500px;
+  height: 300px;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%,-50%);
-  width: 500px; /*Set the width and height to be @ 30px wider/taller than the canvas*/
-  height: 235px;
-  background-color: rgba(0, 0, 0, 0); /* Change this*/
-  border-radius: 10px;
+  background-color: #000000;
+  border-radius: 20px;
+  z-index: 50;
+
 }
 
-#healthOverlay {
+#start-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #000;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s;
+  border-radius: 2px;
+}
+#start-button:hover {
+  background-color: #f00;
+  color: white;
+}
+
+#start-button:active {
+  background-color: rgb(150, 0, 0);
+}
+
+#pause-screen {
   position: absolute;
-  width: 255px;
-  height: 255px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  width: 500px;
+  height: 300px;
+  position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%,-50%);
-  background-color: rgba(0, 0, 0, 0.541);
-  clip-path: polygon(20% 95%, 80% 95%, 100% 91%, 100% 100%, 0 100%, 0 91%);}
-
-#healthUnderlay {
-  position: absolute;
-  width: 255px;
-  height:20px;
-  left: 50%;
-  top: 86%;
-  text-align: center;
-  
-  transform: translate(-50%,-50%);
-  background-color: rgb(0, 0, 0);
-  font-family: Bebas Neue;
-  font-weight: bold;
+  background-color: #000000;
+  border-radius: 20px;
+  z-index: 50;
 }
 
-#health {
-  position: absolute;
-  width: 255px;
-  height:20px;
-  left: 50%;
-  top: 86%;
-  text-align: center;
-  color: black;
-  transform: translate(-50%,-50%);
-  background-color: rgb(16, 190, 0);
-  font-family: Bebas Neue;
-  font-weight: bold;
+#continue-button,
+#restart-button {
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #000;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 2px;
+  transition: all 0.25s;
+}
+
+#continue-button:hover,
+#restart-button:hover {
+  background-color: #f00;
+  color: white;
+}
+#continue-button:active,
+#restart-button:active {
+  background-color: rgb(150, 0, 0);
+  color: white;
 }
 
 #death-screen {
