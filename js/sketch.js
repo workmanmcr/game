@@ -25,6 +25,15 @@ const images = {
     }
 }
 
+let playerImage;
+let openedMouth
+
+function preload() {
+    playerImage = loadImage('./assets/img/Shawn/PixeledClosed.png')
+    openedMouth = loadImage('./assets/img/Shawn/PixeledOpen.png')
+    
+}
+
 const container = document.querySelector('.container');
 const width = container.clientWidth;
 const height = container.clientHeight;
@@ -93,6 +102,7 @@ function draw() {
 
     for (const creature of game.swarm)
         creature.move();
+
 
     for (let i = 0; i < game.player.bullets.length; i++) {
         const bullet = game.player.bullets[i];
