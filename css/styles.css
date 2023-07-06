@@ -9,11 +9,18 @@ body {
   overflow: hidden;
 }
 
+.backBlur {
+  backdrop-filter: blur(15px) brightness(50%) contrast(100%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+}
+
 #menu {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(15px) brightness(50%) contrast(100%);
   z-index: 200;
 }
 
@@ -59,6 +66,8 @@ body {
   transform: translate(-50%,-50%);
   background-color: #000000;
   border-radius: 20px;
+  z-index: 50;
+
 }
 
 #start-button {
@@ -87,7 +96,6 @@ body {
   color: #fff;
   font-family: Arial, sans-serif;
   text-align: center;
-  z-index: 2000;
   width: 500px;
   height: 300px;
   position: absolute;
@@ -96,6 +104,7 @@ body {
   transform: translate(-50%,-50%);
   background-color: #000000;
   border-radius: 20px;
+  z-index: 50;
 }
 
 #continue-button,
@@ -117,17 +126,43 @@ body {
   color: white;
 }
 
-#win-screen,
-#death-screen,
-#end-screen {
+#death-screen {
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   color: #fff;
   font-family: Arial, sans-serif;
   text-align: center;
+  width: 500px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #000000;
+  border-radius: 20px;
+  z-index: 50;
 }
 
+#win-screen {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  z-index: 2000;
+  width: 500px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #000000;
+  border-radius: 20px;
+  z-index: 50;
+}
