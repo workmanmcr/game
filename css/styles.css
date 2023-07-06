@@ -26,6 +26,7 @@ body {
   background-color: rgba(0, 0, 0, 0); /* Change this*/
   border-radius: 10px;
 }
+
 #healthOverlay {
   position: absolute;
   width: 255px;
