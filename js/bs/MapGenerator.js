@@ -37,7 +37,7 @@ class MapGenerator {
                     buffer.image(tiles, j * app.unit, i * app.unit, app.unit, app.unit, 0, 32, 16, 16);
                 }
                 else {
-                    buffer.image(tiles, o, j, app.unit, app.unit, 16, 32, 16, 16);
+                    buffer.image(tiles, j * app.unit, i * app.unit, app.unit, app.unit, 16, 32, 16, 16);
                 }
             }
         }

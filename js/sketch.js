@@ -103,7 +103,7 @@ function draw() {
     for (let i = 0; i < game.player.bullets.length; i++) {
         const bullet = game.player.bullets[i];
         for (const creature of game.swarm) {
-            const distance = dist(bullet.x, bullet.y, creature.x, creature.y) <= app.unit;
+            const distance = dist(bullet.pos.x, bullet.pos.y, creature.pos.x, creature.pos.y) <= app.unit;
             if (distance <= app.unit) {
                 const death = creature.hit();
                 if (death) {
@@ -117,7 +117,7 @@ function draw() {
     for (const creature of game.swarm) {
         for (let i = 0; i < creature.stings.length; i++) {
             const sting = creature.stings[i];
-            const distance = dist(sting.x, sting.y, game.player.x, game.player.y);
+            const distance = dist(sting.pos.x, sting.pos.y, game.player.pos.x, game.player.pos.y);
             if (distance <= app.unit) {
                 const death = game.player.hit();
                 if (death) {
