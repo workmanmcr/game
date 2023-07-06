@@ -47,9 +47,11 @@ class Player {
         }))
     }
 
+
     hit() {
         this.health--;
         return this.health === 0;
+
     }
 
     draw() {
@@ -64,4 +66,3 @@ class Player {
         for (const bullet of this.bullets)
             bullet.draw();
     }
-}

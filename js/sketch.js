@@ -6,9 +6,11 @@ const app = {
 }
 
 const game = {
+    mapGenerator: {},
     player: {},
     swarm: []
 }
+
 
 const container = document.querySelector('.container');
 const width = container.clientWidth;
@@ -17,6 +19,7 @@ const height = container.clientHeight;
 function setup() {
     createCanvas(width, height);
     rectMode(CENTER);
+    game.mapGenerator = new MapGenerator(100, 10, 1);
     game.player = new Player(app.unit, app.unit);
     game.swarm.push(creatures.makeCreature({
         x: width - (app.unit * 2),
@@ -42,6 +45,8 @@ function setup() {
 
 function draw() {
     background(220);
+    game.mapGenerator.draw();
+
     if (game.player.life)
         game.player.draw();
     for (const creature of game.swarm) 
