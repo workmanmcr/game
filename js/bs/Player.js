@@ -1,12 +1,17 @@
 class Player {
     constructor(x, y) {
-        this.speed = 5;
+        this.size = 1;
+        this.speed = 50;
         this.angle = 0;
         this.pos = createVector(x, y);
         this.bullets = [];
         this.health = app.max_health;
         this.life = 1;
-    }
+        this.closedMouth = loadImage('../assets/img/Shawn/Closed-Mouth.png')
+        this.openedMouth = loadImage('../assets/img/Shawn/Open-Mouth.png')
+        this.playerImage = loadImage('../assets/img/Shawn/Closed-Mouth.png')
+    };
+
     // press A to move left, D to move right, W to move up, S to move down
     move() {
         if (keyIsDown(65) && this.pos.x - this.speed - app.unit/2 >= 0) {
@@ -30,7 +35,7 @@ class Player {
 
         if (keyIsDown(75) || mouseIsPressed) {
             this.shoot();
-        }
+        } else { this.playerImage = this.closedMouth}
 
         for (const bullet of this.bullets)
             bullet.move();
@@ -57,15 +62,14 @@ class Player {
     }
 
     draw() {
-        fill(255);
-        stroke(0);
         push();
         translate(this.pos.x, this.pos.y);
         rotate(this.angle);
-        square(0, 0, app.unit);
+        image(this.playerImage, -app.unit / 2, -app.unit / 2, app.unit, app.unit);
         pop();
 
         for (const bullet of this.bullets)
             bullet.draw();
     }
 };
+

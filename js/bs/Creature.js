@@ -36,7 +36,6 @@ class Creature {
         this.arc_angle = 0;
         this.health = params.health;
         this.color = params.color;
-
         this.stings = [];
         this.target = {};
         this.base = {};
@@ -56,6 +55,7 @@ class Creature {
 
         if (distance < this.range) {
             for (const sting of this.stings) 
+
                 this.shoot();
         }
             

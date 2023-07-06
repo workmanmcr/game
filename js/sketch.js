@@ -1,6 +1,6 @@
 const app = {
-    unit: 32,
-    default_speed: 2,
+    unit: 200,
+    default_speed: 50,
     invalid_coordinate: -100,
     max_health: 20
 }
@@ -13,6 +13,15 @@ const game = {
     swarm: [],
     tiles: {},
     buffer: ''
+}
+
+let playerImage;
+let openedMouth
+
+function preload() {
+    playerImage = loadImage('./assets/img/Shawn/Closed-Mouth.png')
+    openedMouth = loadImage('./assets/img/Shawn/Open-Mouth.png')
+    
 }
 
 const container = document.querySelector('.container');
@@ -77,6 +86,7 @@ function draw() {
 
     for (const creature of game.swarm)
         creature.move();
+
 
     for (let i = 0; i < game.player.bullets.length; i++) {
         const bullet = game.player.bullets[i];
