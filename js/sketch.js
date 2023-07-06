@@ -20,7 +20,8 @@ const images = {
         spider: {},
         wasp: {},
         hornet: {},
-        scarab: {}
+        scarab: {},
+        creature: {}
     }
 }
 
@@ -34,6 +35,7 @@ function preload() {
     images.robots.wasp = loadImage('../assets/Wasp.png');
     images.robots.hornet = loadImage('../assets/Hornet.png');
     images.robots.scarab = loadImage('../assets/Scarab.png');
+    images.robots.creature = loadImage('../assets/Centipede.png');
 }
 
 function setup() { 

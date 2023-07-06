@@ -11,17 +11,15 @@ const creatures = {
         params.y = params.hasOwnProperty('y')
             && typeof params.y === 'number' ?
             params.y : app.invalid_coordinate;
-        const type = params.hasOwnProperty('type')
+        params.type = params.hasOwnProperty('type')
             && ['spider', 'wasp', 'hornet', 'scarab'].includes(params.type) ?
             params.type : 'creature';
-        if (type === 'creature') {
+        if (params.type === 'creature') {
             params.speed = app.default_speed;
             params.health = 1;
-            params.size = 1;
             params.color = [0];
         }
-        delete params.type;
-        return creatures[type](params);
+        return creatures[params.type](params);
     }
 };
 
@@ -34,13 +32,11 @@ class Creature {
         this.angle = 0;
         this.arc_angle = 0;
         this.health = params.health;
-        this.color = params.color;
+        this.graphic = params.type;
 
         this.stings = [];
         this.base = createVector(params.x, params.y);
         this.radius = app.unit * 2;
-
-        this.last_target = {};
     }
 
     move() {
@@ -60,7 +56,7 @@ class Creature {
 
         // this.pos = createVector(player.pos.x + cos(this.arc_angle) * this.distance, player.pos.y + sin(this.arc_angle) * this.distance);
         
-        this.pos.add(cos(this.angle) * this.speed, sin(this.angle) * this.speed);
+        // this.pos.add(cos(this.angle) * this.speed, sin(this.angle) * this.speed);
 
         // this.last_target = player.pos;
         
@@ -83,12 +79,11 @@ class Creature {
     }
 
     draw() {
-        fill(...this.color);
         noStroke();
         push();
         translate(this.pos.x, this.pos.y);
         rotate(this.angle);
-        rect(0, 0, app.unit, app.unit);
+        image(images.robots[this.graphic], 0, 0, app.unit, app.unit, 0, 0, 16, 16);
         pop();
 
         for (let sting of this.stings) 
