@@ -1,6 +1,6 @@
 class Player {
     constructor(x, y) {
-        this.speed = 5;
+        this.speed = app.default_speed;
         this.angle = 0;
         this.pos = createVector(x, y);
         this.bullets = [];

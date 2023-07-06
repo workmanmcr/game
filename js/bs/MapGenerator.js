@@ -17,7 +17,7 @@ class MapGenerator {
 
     draw(buffer) {
         noStroke();
-        const { tiles } = game;
+        const { tiles } = images;
         for (let i = 0; i < game.map_height / app.unit; i++) {
             for (let j = 0; j < game.map_width / app.unit; j++) {
                 const val = noise(i / this.granularity, j / this.granularity);

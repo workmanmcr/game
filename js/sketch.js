@@ -1,12 +1,11 @@
 const app = {
     unit: 32,
-    default_speed: 2,
+    default_speed: 5,
     invalid_coordinate: -100,
     max_health: 20
 }
 
 const game = {
-    map: {},
     map_width: 0,
     map_height: 0,
     player: {},
@@ -15,25 +14,39 @@ const game = {
     buffer: ''
 }
 
+const images = {
+    tiles: {},
+    robots: {
+        spider: {},
+        wasp: {},
+        hornet: {},
+        scarab: {}
+    }
+}
+
 const container = document.querySelector('.container');
 const width = container.clientWidth;
 const height = container.clientHeight;
 
 function preload() {
-    game.tiles = loadImage('../assets/tileset_arranged.png');
+    images.tiles = loadImage('../assets/tileset_arranged.png');
+    images.robots.spider = loadImage('../assets/Spider.png');
+    images.robots.wasp = loadImage('../assets/Wasp.png');
+    images.robots.hornet = loadImage('../assets/Hornet.png');
+    images.robots.scarab = loadImage('../assets/Scarab.png');
 }
 
 function setup() { 
-    game.map_width = 2700;
+    game.map_width = width * 4 + width / 2;
     game.map_height = height;
 
     createCanvas(game.map_width, game.map_height);
     rectMode(CENTER);
 
     game.buffer = createGraphics(game.map_width, game.map_height);
-    game.map = new MapGenerator(100, 1);
-    game.map.generateMap();
-    game.map.draw(game.buffer);
+    const map = new MapGenerator(100, 1);
+    map.generateMap();
+    map.draw(game.buffer);
 
     game.player = new Player(app.unit, app.unit);
     game.swarm.push(creatures.makeCreature({
@@ -95,6 +108,7 @@ function draw() {
 
     for (const creature of game.swarm) {
         for (let i = 0; i < creature.stings.length; i++) {
+            const sting = creature.stings[i];
             const distance = dist(sting.x, sting.y, game.player.x, game.player.y);
             if (distance <= app.unit) {
                 const death = game.player.hit();

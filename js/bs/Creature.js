@@ -28,9 +28,8 @@ const creatures = {
 class Creature {
     constructor(params) {
         this.pos = createVector(params.x, params.y);
-        this.dx = 0;
-        this.dy = 0;
         this.angle = 0;
+        this.distance = 0;
         this.speed = params.speed;
         this.angle = 0;
         this.arc_angle = 0;
@@ -38,27 +37,32 @@ class Creature {
         this.color = params.color;
 
         this.stings = [];
-        this.target = {};
-        this.base = {};
-        this.range = app.unit * 30;
+        this.base = createVector(params.x, params.y);
+        this.radius = app.unit * 2;
+
+        this.last_target = {};
     }
 
     move() {
-        this.target = game.player.pos;
-        this.angle = atan2(this.target.y - this.pos.y, this.target.x - this.pos.x);
-        let distance = dist(this.pos.x, this.pos.y, this.target.x, this.target.y);
-        if (distance > this.range + app.unit)
-            distance -= this.speed;
+        const { player } = game;
+        
+        // this.distance = player.pos.dist(this.pos);
+        this.angle = atan2(player.pos.y - this.pos.y, player.pos.x - this.pos.x);
 
-        this.arc_angle += Math.PI / 45;
-        this.x = this.target.x + cos(this.arc_angle) * distance;
-        this.y = this.target.y + sin(this.arc_angle) * distance;
+        // if (this.pos.dist(player.pos) > app.unit * 3 || player.pos.dist(this.last_target) > 0) {
+        //     this.distance -= this.speed;
+        //     this.arc_angle = this.angle;
+        // }
+        // else {
+        //     this.arc_angle += Math.PI / 90;
+        //     this.distance = app.unit * 3;
+        // } 
 
-        if (distance < this.range) {
-            for (const sting of this.stings) 
-                this.shoot();
-        }
-            
+        // this.pos = createVector(player.pos.x + cos(this.arc_angle) * this.distance, player.pos.y + sin(this.arc_angle) * this.distance);
+        
+        this.pos.add(cos(this.angle) * this.speed, sin(this.angle) * this.speed);
+
+        // this.last_target = player.pos;
         
         /* 
             Check if creature has target: move towards target
@@ -109,8 +113,8 @@ class Creature {
 class Spider extends Creature {
     constructor(params) {
         super({ ...params,
-            speed: 3,
-            health: 3,
+            speed: app.default_speed * 2,
+            health: 15,
             color: [255, 0, 0]
         });
     }
@@ -120,8 +124,8 @@ class Wasp extends Creature {
     constructor(params) {
         super({
             ...params,
-            speed: 3,
-            health: 2,
+            speed: app.default_speed,
+            health: 10,
             color: [255, 255, 0]
         });
     }
@@ -130,8 +134,8 @@ class Wasp extends Creature {
 class Hornet extends Creature {
     constructor(params) {
         super({ ...params,
-            speed: 3,
-            health: 4,
+            speed: app.default_speed,
+            health: 20,
             color: [160, 82, 45]
         })
     }
@@ -140,8 +144,8 @@ class Hornet extends Creature {
 class Scarab extends Creature {
     constructor(params) {
         super({ ...params,
-            speed: 3,
-            health: 2,
+            speed: app.default_speed * 1.5,
+            health: 5,
             color: [128, 0, 128]
         })
     }
