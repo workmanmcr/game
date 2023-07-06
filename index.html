@@ -11,21 +11,43 @@
 
 <body>
 
-    <!-- <div id="menu">
-        <div id="background"></div>
-        <div id="example"></div>
-        <div id="healthUnderlay"></div>
-        <div id="health">HEALTH</div>
-        <div id="ammo">AMMO</div>
-        <div id="healthOverlay"></div>
-    
-        <div id="settings">
-            <div id="pause"></div>
-            <div id="play"></div>
-            <div id="audioTrue"></div>
-            <div id="audioFalse"></div>
+    <div class="backBlur"></div>
+    <div id="menu">
+        <div id="start-screen">
+            <img src="./assets/img/UI/The_Oregon_Trail.png" id="logo">
+            <h1>ORGAN Trail</h1>
+            <p>Guts, Glory, and a whole lot of sticky icky bugs</p>
+            <button id="start-button">Start Game</button>
+            <img src="./assets/img/UI/Group 5.png" alt="keyboard controls" class="controlsImage">        
         </div>
-    </div> -->
+    </div>
+
+    <div id="game-content">
+        <div id="health-bar-container">
+            <div id="health-bar">HEALTH:</div>
+        </div>
+    </div>
+
+    <div id="pause-screen" class="backBlur">
+        <h1>Game Paused</h1>
+        <button id="continue-button">Continue</button>
+        <button id="restart-button">Restart</button>
+        <img src="./assets/img/UI/Group 5.png" alt="keyboard controls" class="controlsImage">
+    </div>
+
+    <div id="win-screen">
+        <h1>Congratulations!</h1>
+        <p>You won the game!</p>
+        <button id="restart-button">Restart</button>
+        <img src="./assets/img/UI/Group 5.png" alt="keyboard controls" class="controlsImage">
+    </div>
+
+    <div id="death-screen" class="backBlur">
+        <h1>Game Over</h1>
+        <p>You lost the game...</p>
+        <button id="restart-button">Restart</button>
+        <img src="./assets/img/UI/Group 5.png" alt="keyboard controls" class="controlsImage">
+    </div>
 
     <div class="container">
         <main id="canvas"></main>
@@ -37,9 +59,11 @@
     <script src="./js/bs/Ammunition.js"></script>
     <script src="./js/bs/Creature.js"></script>
     <script src="./js/bs/Player.js"></script>
+    <script src="./js/bs/UI.js"></script>
     <script src="./js/bs/Swarm.js"></script>
     <script src="./js/bs/MapGenerator.js"></script>
     <script src="./js/sketch.js"></script>
+    
 
 </body>
 
