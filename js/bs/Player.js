@@ -52,7 +52,7 @@ class Player {
         this.graphic = images.shawn.open;
         this.bullets.push(makeAmmunition({
             x: this.pos.x,
-            y: this.pos.y + app.unit / 1.5,
+            y: this.pos.y,
             angle: this.angle,
             type: 'bullet'
         }))
@@ -67,7 +67,7 @@ class Player {
         push();
         translate(this.pos.x, this.pos.y);
         rotate(this.angle);
-        image(this.graphic, - app.unit / 2, - app.unit / 2, app.unit * 2, app.unit * 2);
+        image(this.graphic, - app.unit, - app.unit, app.unit * 2, app.unit * 2);
         pop();
 
         for (const bullet of this.bullets)

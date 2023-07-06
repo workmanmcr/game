@@ -10,7 +10,6 @@ const game = {
     map_height: 0,
     player: {},
     swarm: [],
-    tiles: {},
     buffer: ''
 }
 
@@ -82,7 +81,7 @@ function setup() {
 function draw() {
     background(220);
     
-    const { player, swarm} = game;
+    const { player, swarm } = game;
     image(game.buffer, 0, 0);
 
     if (player.life)
