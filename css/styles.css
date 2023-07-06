@@ -93,6 +93,10 @@ body {
   color: white;
 }
 
+#start-button:active {
+  background-color: rgb(150, 0, 0);
+}
+
 #pause-screen {
   position: absolute;
   display: flex;
@@ -129,6 +133,11 @@ body {
 #continue-button:hover,
 #restart-button:hover {
   background-color: #f00;
+  color: white;
+}
+#continue-button:active,
+#restart-button:active {
+  background-color: rgb(150, 0, 0);
   color: white;
 }
 

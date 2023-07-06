@@ -15,3 +15,4 @@ window.addEventListener("load", function() {
   let gameState = "Start";
   let gameplay = false;
 });
+
