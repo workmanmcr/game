@@ -1,6 +1,6 @@
 const app = {
-    unit: 16,
-    default_speed: 2,
+    unit: 200,
+    default_speed: 50,
     invalid_coordinate: -100,
     max_health: 20
 }
@@ -9,6 +9,15 @@ const game = {
     mapGenerator: {},
     player: {},
     swarm: []
+}
+
+let playerImage;
+let openedMouth
+
+function preload() {
+    playerImage = loadImage('./assets/img/Shawn/Closed-Mouth.png')
+    openedMouth = loadImage('./assets/img/Shawn/Open-Mouth.png')
+    
 }
 
 
@@ -45,7 +54,7 @@ function setup() {
 
 function draw() {
     background(220);
-    game.mapGenerator.draw();
+    // game.mapGenerator.draw();
 
     if (game.player.life)
         game.player.draw();
