@@ -1,43 +1,33 @@
 class Player {
     constructor(x, y) {
-        this.size = 1;
-        this.speed = 50;
+        this.speed = app.default_speed;
         this.angle = 0;
         this.pos = createVector(x, y);
         this.bullets = [];
         this.health = app.max_health;
         this.life = 1;
-        this.closedMouth = loadImage('../assets/img/Shawn/PixeledClosed.png')
-        this.openedMouth = loadImage('../assets/img/Shawn/PixeledOpen.png')
-        this.playerImage = loadImage('../assets/img/Shawn/PixeledClosed.png')
+        this.graphic = images.shawn.closed;
     };
 
     // press A to move left, D to move right, W to move up, S to move down
     move() {
-        if (keyIsDown(65)) {
-            if (this.pos.x - this.speed - app.unit / 2 >= 0) {
-                this.pos.x -= this.speed;
-            }
-            else {
-                game.map_pos_x = Math.max(0, game.map_pos_x - this.speed);
-            }
+        if ((keyIsDown(65) || keyIsDown(LEFT_ARROW))
+            && this.pos.x - this.speed - app.unit / 2 >= 0) {
+            this.pos.x -= this.speed;
         }
-        if (keyIsDown(83) && this.pos.y + this.speed + app.unit / 2 <= game.map_height) {
+        if ((keyIsDown(83) || keyIsDown(DOWN_ARROW))
+            && this.pos.y + this.speed + app.unit / 2 <= game.map_height) {
             this.pos.y += this.speed;
         }
-        if (keyIsDown(87) && this.pos.y - this.speed - app.unit / 2 >= 0) {
+        if ((keyIsDown(87) || keyIsDown(UP_ARROW))
+            && this.pos.y - this.speed - app.unit / 2 >= 0) {
             this.pos.y -= this.speed;
         }
-        if (keyIsDown(68)) {
-            if (this.pos.x + this.speed + app.unit / 2 < width / 2) {
-                this.pos.x += this.speed;
-            }
-            else {
-                if (game.map_pos_x + this.speed < game.map_width - width) {
-                    game.map_pos_x += this.speed;
-                }
-            }
+        if ((keyIsDown(68) || keyIsDown(RIGHT_ARROW))
+            && this.pos.x + this.speed + app.unit / 2 <= game.map_width) {
+            this.pos.x += this.speed;
         }
+
         if (keyIsDown(74)) {
             this.angle -= 0.1;
         }
@@ -47,7 +37,11 @@ class Player {
 
         if (keyIsDown(75) || mouseIsPressed) {
             this.shoot();
+<<<<<<< HEAD
         } else { this.playerImage = this.closedMouth }
+=======
+        } else { this.graphic = images.shawn.closed }
+>>>>>>> b974642f0b6320808466f4edf1099f39a3d9512a
 
         for (const bullet of this.bullets)
             bullet.move();
@@ -59,15 +53,14 @@ class Player {
     }
     // press J and L to aim and spacebar to shoot or use mouse to aim and left click to shoot.
     shoot() {
-        this.playerImage = this.openedMouth;
+        this.graphic = images.shawn.open;
         this.bullets.push(makeAmmunition({
             x: this.pos.x,
-            y: this.pos.y,
+            y: this.pos.y + app.unit / 1.5,
             angle: this.angle,
             type: 'bullet'
         }))
     }
-
 
     hit() {
         this.health--;
@@ -78,7 +71,7 @@ class Player {
         push();
         translate(this.pos.x, this.pos.y);
         rotate(this.angle);
-        image(this.playerImage, -app.unit / 2, -app.unit / 2, app.unit, app.unit);
+        image(this.graphic, - app.unit / 2, - app.unit / 2, app.unit * 2, app.unit * 2);
         pop();
 
         for (const bullet of this.bullets)

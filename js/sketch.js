@@ -1,12 +1,11 @@
 const app = {
-    unit: 200,
-    default_speed: 50,
+    unit: 32,
+    default_speed: 5,
     invalid_coordinate: -100,
     max_health: 20
 }
 
 const game = {
-    map: {},
     map_width: 0,
     map_height: 0,
     map_pos_x: 0,
@@ -16,12 +15,19 @@ const game = {
     buffer: ''
 }
 
-let playerImage;
-let openedMouth
-
-function preload() {
-    playerImage = loadImage('./assets/img/Shawn/PixeledClosed.png');
-    openedMouth = loadImage('./assets/img/Shawn/PixeledOpen.png');
+const images = {
+    tiles: {},
+    robots: {
+        spider: {},
+        wasp: {},
+        hornet: {},
+        scarab: {},
+        creature: {}
+    },
+    shawn: {
+        open: {},
+        closed: {}
+    }
 }
 
 const container = document.querySelector('.container');
@@ -29,20 +35,27 @@ const container = document.querySelector('.container');
 //const height = container.clientHeight;
 
 function preload() {
-    game.tiles = loadImage('../assets/tileset_arranged.png');
+    images.tiles = loadImage('../assets/tileset_arranged.png');
+    images.robots.spider = loadImage('../assets/Spider.png');
+    images.robots.wasp = loadImage('../assets/Wasp.png');
+    images.robots.hornet = loadImage('../assets/Hornet.png');
+    images.robots.scarab = loadImage('../assets/Scarab.png');
+    images.robots.creature = loadImage('../assets/Centipede.png');
+    images.shawn.open = loadImage('../assets/PixeledOpen.png');
+    images.shawn.closed = loadImage('../assets/PixeledClosed.png');
 }
 
 function setup() {
-    game.map_width = 10000;
-    game.map_height = windowHeight;
+    game.map_width = width * 4 + width / 2;
+    game.map_height = height;
 
     createCanvas(windowWidth, windowHeight);
     rectMode(CENTER);
 
     game.buffer = createGraphics(game.map_width, game.map_height);
-    game.map = new MapGenerator(15, 1);
-    //game.map.generateMap();
-    game.map.draw();
+    const map = new MapGenerator(100, 1);
+    map.generateMap();
+    map.draw(game.buffer);
 
     game.player = new Player(app.unit, app.unit);
     game.swarm.push(creatures.makeCreature({
@@ -78,6 +91,12 @@ function draw() {
         creature.draw();
     player.move();
 
+    if (player.pos.x > width / 2 && player.pos.x < game.map_width - width / 2) {
+        const canvas = document.querySelector('main');
+        canvas.style.transform = `translateX(-${player.pos.x - width / 2}px)`;
+        console.log(canvas.style.transform);
+    }
+
     for (const creature of game.swarm)
         creature.move();
 
@@ -98,6 +117,7 @@ function draw() {
 
     for (const creature of game.swarm) {
         for (let i = 0; i < creature.stings.length; i++) {
+            const sting = creature.stings[i];
             const distance = dist(sting.x, sting.y, game.player.x, game.player.y);
             if (distance <= app.unit) {
                 const death = game.player.hit();

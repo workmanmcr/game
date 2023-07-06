@@ -38,10 +38,28 @@ class MapGenerator {
 
     draw() {
         noStroke();
-        const { tiles } = game;
-        for (let i = 0; i < game.map_height / this.tileSize; i++) {
-            for (let j = 0; j < game.map_width / this.tileSize; j++) {
-                this.drawBuffer(i, j);
+        const { tiles } = images;
+        for (let i = 0; i < game.map_height / app.unit; i++) {
+            for (let j = 0; j < game.map_width / app.unit; j++) {
+                const val = noise(i / this.granularity, j / this.granularity);
+                if (val < .3) {
+                    buffer.image(tiles, j * app.unit, i * app.unit, app.unit, app.unit, 0, 0, 16, 16);
+                }
+                else if (val < .4) {
+                    buffer.image(tiles, j * app.unit, i * app.unit, app.unit, app.unit, 16, 0, 16, 16);
+                }
+                else if (val < .5) {
+                    buffer.image(tiles, j * app.unit, i * app.unit, app.unit, app.unit, 0, 16, 16, 16);
+                }
+                else if (val < .7) {
+                    buffer.image(tiles, j * app.unit, i * app.unit, app.unit, app.unit, 16, 16, 16, 16);
+                }
+                else if (val < .9) {
+                    buffer.image(tiles, j * app.unit, i * app.unit, app.unit, app.unit, 0, 32, 16, 16);
+                }
+                else {
+                    buffer.image(tiles, o, j, app.unit, app.unit, 16, 32, 16, 16);
+                }
             }
         }
     }

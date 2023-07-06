@@ -13,11 +13,6 @@ class Swarm {
                 this.creatures[i][j].base = base;
             }
         }
-        this.range = params.range;
-    }
-
-    move() {
-        const distance = dist(player.pos.x, player.pos.y, this.pos.x, this.pos.y);
     }
 }
 
