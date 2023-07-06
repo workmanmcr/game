@@ -24,6 +24,12 @@ body {
   z-index: 200;
 }
 
+#menu img {
+  position: absolute;
+  width: 350px;
+  top: 450px;
+}
+
 #health-bar-container {
   position: absolute;
   left: 50.20%;
@@ -55,6 +61,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items:center;
+  justify-content: center;
   color: #fff;
   font-family:Arial, sans-serif;
   text-align: center;
@@ -71,8 +78,7 @@ body {
 }
 
 #start-button {
-  position: absolute;
-  top: 50%;
+  margin-top: 20px;
   padding: 10px 20px;
   background-color: #fff;
   color: #000;

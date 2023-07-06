@@ -1,4 +1,4 @@
-class Player {
+export default class Player {
   constructor(x, y) {
     this.size = 1;
     this.dy = 0;

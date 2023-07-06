@@ -1,4 +1,4 @@
-class Swarm {
+export default class Swarm {
     constructor(params) {
         this.creatures = [];
         for (let i = 0; i < params.bases.length; i++) {

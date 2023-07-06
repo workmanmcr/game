@@ -1,3 +1,6 @@
+import Player from "./Player";
+import Swarm from "./Swarm";
+
 window.addEventListener("load", function() {
   const startButton = document.getElementById("start-button");
   const startScreen = document.getElementById("start-screen");
@@ -7,7 +10,6 @@ window.addEventListener("load", function() {
   const restartButton = document.getElementById("restart-button");
   const winScreen = document.getElementById("win-screen");
   const deathScreen = document.getElementById("death-screen");
-  const endScreen = document.getElementById("end-screen");
   const healthBar = document.getElementById("health-bar");
 
   let gameState = "Start";
