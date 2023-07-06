@@ -9,17 +9,17 @@ class Player {
     }
     // press A to move left, D to move right, W to move up, S to move down
     move() {
-        if (keyIsDown(65)) {
-            this.pos.x += -1 * this.speed;
+        if (keyIsDown(65) && this.pos.x - this.speed - app.unit/2 >= 0) {
+            this.pos.x -= this.speed;
         }
-        if (keyIsDown(83)) {
-            this.pos.y += 1 * this.speed;
+        if (keyIsDown(83) && this.pos.y + this.speed + app.unit/2 <= game.map_height) {
+            this.pos.y += this.speed;
         }
-        if (keyIsDown(87)) {
-            this.pos.y += -1 * this.speed;
+        if (keyIsDown(87) && this.pos.y - this.speed - app.unit/2 >= 0) {
+            this.pos.y -= this.speed;
         }
-        if (keyIsDown(68)) {
-            this.pos.x += 1 * this.speed;
+        if (keyIsDown(68) && this.pos.x + this.speed + app.unit/2 <= game.map_width) {
+            this.pos.x += this.speed;
         }
         if (keyIsDown(74)) {
             this.angle -= 0.1;
@@ -34,10 +34,6 @@ class Player {
 
         for (const bullet of this.bullets)
             bullet.move();
-    }
-
-    moveInBounds(pos, d, lowerBound, higherBound) {
-        if (pos + d * this.speed > lowerBound && pos + d * this.speed < higherBound) { }
     }
 
     updateAim() {

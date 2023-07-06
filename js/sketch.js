@@ -73,7 +73,6 @@ function draw() {
     if (player.pos.x > width / 2 && player.pos.x < game.map_width - width / 2) {
         const canvas = document.querySelector('main');
         canvas.style.transform = `translateX(-${player.pos.x - width / 2}px)`;
-        console.log(canvas.style.transform);
     }
 
     for (const creature of game.swarm)
