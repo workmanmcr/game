@@ -9,6 +9,7 @@ const game = {
     map: {},
     map_width: 0,
     map_height: 0,
+    map_pos_x: 0,
     player: {},
     swarm: [],
     tiles: {},
@@ -19,30 +20,29 @@ let playerImage;
 let openedMouth
 
 function preload() {
-    playerImage = loadImage('./assets/img/Shawn/PixeledClosed.png')
-    openedMouth = loadImage('./assets/img/Shawn/PixeledOpen.png')
-    
+    playerImage = loadImage('./assets/img/Shawn/PixeledClosed.png');
+    openedMouth = loadImage('./assets/img/Shawn/PixeledOpen.png');
 }
 
 const container = document.querySelector('.container');
-const width = container.clientWidth;
-const height = container.clientHeight;
+//const width = container.clientWidth;
+//const height = container.clientHeight;
 
 function preload() {
     game.tiles = loadImage('../assets/tileset_arranged.png');
 }
 
-function setup() { 
-    game.map_width = 2700;
-    game.map_height = height;
+function setup() {
+    game.map_width = 10000;
+    game.map_height = windowHeight;
 
-    createCanvas(game.map_width, game.map_height);
+    createCanvas(windowWidth, windowHeight);
     rectMode(CENTER);
 
     game.buffer = createGraphics(game.map_width, game.map_height);
-    game.map = new MapGenerator(100, 1);
-    game.map.generateMap();
-    game.map.draw(game.buffer);
+    game.map = new MapGenerator(15, 1);
+    //game.map.generateMap();
+    game.map.draw();
 
     game.player = new Player(app.unit, app.unit);
     game.swarm.push(creatures.makeCreature({
@@ -69,20 +69,14 @@ function setup() {
 
 function draw() {
     background(220);
-    
-    const { player, swarm} = game;
-    image(game.buffer, 0, 0);
+    const { player, swarm } = game;
+    image(game.buffer, 0, 0, width, height, game.map_pos_x, 0, width, height);
 
     if (player.life)
         player.draw();
     for (const creature of swarm)
         creature.draw();
     player.move();
-
-    if (player.pos.x > width / 2 && player.pos.x < game.map_width - width / 2) {
-        const canvas = document.querySelector('main');
-        canvas.style.transform = `translateX(-${player.pos.x - width / 2}px)`;
-    }
 
     for (const creature of game.swarm)
         creature.move();

@@ -14,17 +14,29 @@ class Player {
 
     // press A to move left, D to move right, W to move up, S to move down
     move() {
-        if (keyIsDown(65) && this.pos.x - this.speed - app.unit/2 >= 0) {
-            this.pos.x -= this.speed;
+        if (keyIsDown(65)) {
+            if (this.pos.x - this.speed - app.unit / 2 >= 0) {
+                this.pos.x -= this.speed;
+            }
+            else {
+                game.map_pos_x = Math.max(0, game.map_pos_x - this.speed);
+            }
         }
-        if (keyIsDown(83) && this.pos.y + this.speed + app.unit/2 <= game.map_height) {
+        if (keyIsDown(83) && this.pos.y + this.speed + app.unit / 2 <= game.map_height) {
             this.pos.y += this.speed;
         }
-        if (keyIsDown(87) && this.pos.y - this.speed - app.unit/2 >= 0) {
+        if (keyIsDown(87) && this.pos.y - this.speed - app.unit / 2 >= 0) {
             this.pos.y -= this.speed;
         }
-        if (keyIsDown(68) && this.pos.x + this.speed + app.unit/2 <= game.map_width) {
-            this.pos.x += this.speed;
+        if (keyIsDown(68)) {
+            if (this.pos.x + this.speed + app.unit / 2 < width / 2) {
+                this.pos.x += this.speed;
+            }
+            else {
+                if (game.map_pos_x + this.speed < game.map_width - width) {
+                    game.map_pos_x += this.speed;
+                }
+            }
         }
         if (keyIsDown(74)) {
             this.angle -= 0.1;
@@ -35,7 +47,7 @@ class Player {
 
         if (keyIsDown(75) || mouseIsPressed) {
             this.shoot();
-        } else { this.playerImage = this.closedMouth}
+        } else { this.playerImage = this.closedMouth }
 
         for (const bullet of this.bullets)
             bullet.move();
