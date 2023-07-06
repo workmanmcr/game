@@ -2,30 +2,80 @@ const app = {
     unit: 16,
     default_speed: 2,
     invalid_coordinate: -100,
-    setView(width, height) {
-        this.width = width;
-        this.height = height;
-    }
+    max_health: 20
 }
 
-const game_pieces = {
+const game = {
     mapGenerator: {},
     player: {},
-    swarms: {}
+    swarm: []
 }
-app.setView(window.innerWidth, window.innerHeight);
 
-function setup() {
-    createCanvas(800, 800);
+const container = document.querySelector('.container');
+const width = container.clientWidth;
+const height = container.clientHeight;
+
+function setup() { 
+    createCanvas(400, 400);
     rectMode(CENTER);
-    game_pieces.mapGenerator = new MapGenerator(100, 10, 1);
+    game.mapGenerator = new MapGenerator(100, 10, 1);
+    game.player = new Player(app.unit, app.unit);
+    game.swarm.push(creatures.makeCreature({
+        x: width - (app.unit * 2),
+        y: height - (app.unit * 2),
+        type: 'spider'
+    }));
+    game.swarm.push(creatures.makeCreature({
+        x: app.unit,
+        y: height - (app.unit * 2),
+        type: 'wasp'
+    }));
+    game.swarm.push(creatures.makeCreature({
+        x: width - (app.unit * 2),
+        y: app.unit,
+        type: 'hornet'
+    }));
+    game.swarm.push(creatures.makeCreature({
+        x: width / 2,
+        y: height / 2,
+        type: 'scarab'
+    }));
 }
 
 function draw() {
     background(220);
-    game_pieces.mapGenerator.draw();
-    player.draw();
-    swarms.draw();
-    player.move();
-    swarms.move();
+    if (game.player.life)
+        game.player.draw();
+    for (const creature of game.swarm)
+        creature.draw();
+    game.player.move();
+    for (const creature of game.swarm)
+        creature.move();
+
+    for (let i = 0; i < game.player.bullets.length; i++) {
+        const bullet = game.player.bullets[i];
+        for (const creature of game.swarm) {
+            const distance = dist(bullet.x, bullet.y, creature.x, creature.y) <= app.unit;
+            if (distance <= app.unit) {
+                const death = creature.hit();
+                if (death) {
+                    delete creature;
+                    game.player.bullets.splice(i, 1);
+                }
+            }
+        }
+    }
+
+    for (const creature of game.swarm) {
+        for (let i = 0; i < creature.stings.length; i++) {
+            const distance = dist(sting.x, sting.y, game.player.x, game.player.y);
+            if (distance <= app.unit) {
+                const death = game.player.hit();
+                if (death) {
+                    game.player.health = app.max_health;
+                    game.player.life--;
+                }
+            }
+        }
+    }
 }
