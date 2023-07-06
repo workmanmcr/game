@@ -37,7 +37,7 @@ class Player {
     }
 
     moveInBounds(pos, d, lowerBound, higherBound) {
-        if (pos + d * this.speed > lowerBound && pos + d * this.speed < higherBound)
+        if (pos + d * this.speed > lowerBound && pos + d * this.speed < higherBound) { }
     }
 
     updateAim() {
