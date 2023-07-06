@@ -56,7 +56,7 @@ class Creature {
 
         if (distance < this.range) {
             for (const sting of this.stings) 
-            this.shoot();
+                this.shoot();
         }
             
         
