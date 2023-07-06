@@ -46,10 +46,10 @@ function preload() {
 }
 
 function setup() {
-    game.map_width = 10000;
-    game.map_height = windowHeight;
+    game.map_width = 2000;
+    game.map_height = height;
 
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(width, height);
     rectMode(CENTER);
 
     game.buffer = createGraphics(game.map_width, game.map_height);
