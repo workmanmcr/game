@@ -9,7 +9,7 @@ class Ammunition {
     }
 
     move() {
-        this.pos.add(this.speed * Math.cos(this.angle), this.speed * Math.sin(this.angle));
+        this.pos.add(this.speed * Math.cos(this.angle + Math.PI / 8), this.speed * Math.sin(this.angle + Math.PI / 8));
     }
 
     draw() {
@@ -17,7 +17,9 @@ class Ammunition {
         if (this.type === 'bullet') {
             fill(0);
             noStroke();
-            circle(this.pos.x, this.pos.y, length);
+            let x_offset = Math.pow(2, .5) * 2 * app.unit * Math.cos(this.angle + Math.PI / 4);
+            let y_offset = Math.pow(2, .5) * 2 * app.unit * Math.sin(this.angle + Math.PI / 4);
+            circle(this.pos.x + x_offset, this.pos.y + y_offset, length);
         }
         else {
             noFill();
@@ -33,15 +35,15 @@ class Ammunition {
 function makeAmmunition(params) {
     params.x = params.hasOwnProperty('x')
         && typeof params.x === 'number' ?
-        params.x : App.invalid_coordinate;
-    
+        params.x : app.invalid_coordinate;
+
     params.y = params.hasOwnProperty('y')
         && typeof params.y === 'number' ?
-        params.y : App.invalid_coordinate;
-    
+        params.y : app.invalid_coordinate;
+
     params.angle = params.hasOwnProperty('angle')
         && typeof params.angle === 'number' ?
         params.angle : 0;
-    
+
     return new Ammunition(params);
 }

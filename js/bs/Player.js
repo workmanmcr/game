@@ -2,7 +2,7 @@ class Player {
     constructor(x, y) {
         this.speed = app.default_speed;
         this.angle = 0;
-        this.pos = createVector(x, y);
+        this.pos = createVector(x + 10, y + 10);
         this.bullets = [];
         this.health = app.max_health;
         this.life = 1;
@@ -60,7 +60,7 @@ class Player {
         this.graphic = images.shawn.open;
         this.bullets.push(makeAmmunition({
             x: this.pos.x,
-            y: this.pos.y + app.unit / 1.5,
+            y: this.pos.y,
             angle: this.angle,
             type: 'bullet'
         }))
@@ -75,7 +75,7 @@ class Player {
         push();
         translate(this.pos.x, this.pos.y);
         rotate(this.angle);
-        image(this.graphic, - app.unit / 2, - app.unit / 2, app.unit * 2, app.unit * 2);
+        image(this.graphic, - app.unit * 3 / 2, - app.unit * 3 / 2, app.unit * 6, app.unit * 6);
         pop();
 
         for (const bullet of this.bullets)
