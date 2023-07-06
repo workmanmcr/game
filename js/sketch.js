@@ -31,8 +31,8 @@ const images = {
 }
 
 const container = document.querySelector('.container');
-const width = container.clientWidth;
-const height = container.clientHeight;
+let width = container.clientWidth;
+let height = container.clientHeight;
 
 function preload() {
     images.tiles = loadImage('../assets/tileset_arranged.png');
@@ -47,9 +47,9 @@ function preload() {
 
 function setup() {
     game.map_width = 10000;
-    game.map_height = windowHeight;
+    game.map_height = height;
 
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(width, height);
     rectMode(CENTER);
 
     game.buffer = createGraphics(game.map_width, game.map_height);
@@ -80,6 +80,9 @@ function setup() {
 }
 
 function draw() {
+    if (width != container.clientWidth || height != container.clientHeight) {
+        updateDimensions();
+    }
     background(220);
     const { player, swarm } = game;
     image(game.buffer, 0, 0, width, height, game.map_pos_x, 0, width, height);
@@ -121,4 +124,10 @@ function draw() {
             }
         }
     }
+}
+
+function updateDimensions() {
+    width = container.clientWidth;
+    height = container.clientHeight;
+    resizeCanvas(width, height);
 }
