@@ -14,8 +14,6 @@ window.addEventListener("load", function () {
   let isGameActive = false;
   let isGamePaused = false;
 
-  let player; 
-
   function updateHealthUI() {
     const playerHealth = game.player.health;
     const healthPercentage = (playerHealth / app.max_health) * 100;
