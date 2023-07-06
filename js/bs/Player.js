@@ -37,11 +37,7 @@ class Player {
 
         if (keyIsDown(75) || mouseIsPressed) {
             this.shoot();
-<<<<<<< HEAD
-        } else { this.playerImage = this.closedMouth }
-=======
         } else { this.graphic = images.shawn.closed }
->>>>>>> b974642f0b6320808466f4edf1099f39a3d9512a
 
         for (const bullet of this.bullets)
             bullet.move();
