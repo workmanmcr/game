@@ -6,9 +6,13 @@ const app = {
 }
 
 const game = {
-    mapGenerator: {},
+    map: {},
+    map_width: 0,
+    map_height: 0,
     player: {},
-    swarm: []
+    swarm: [],
+    tiles: {},
+    buffer: ''
 }
 
 let playerImage;
@@ -20,28 +24,39 @@ function preload() {
     
 }
 
-
 const container = document.querySelector('.container');
 const width = container.clientWidth;
 const height = container.clientHeight;
 
-function setup() {
-    createCanvas(width, height);
+function preload() {
+    game.tiles = loadImage('../assets/tileset_arranged.png');
+}
+
+function setup() { 
+    game.map_width = 2700;
+    game.map_height = height;
+
+    createCanvas(game.map_width, game.map_height);
     rectMode(CENTER);
-    game.mapGenerator = new MapGenerator(100, 10, 1);
+
+    game.buffer = createGraphics(game.map_width, game.map_height);
+    game.map = new MapGenerator(100, 1);
+    game.map.generateMap();
+    game.map.draw(game.buffer);
+
     game.player = new Player(app.unit, app.unit);
     game.swarm.push(creatures.makeCreature({
-        x: width - (app.unit * 2),
-        y: height - (app.unit * 2),
+        x: width - app.unit,
+        y: height - app.unit,
         type: 'spider'
     }));
     game.swarm.push(creatures.makeCreature({
         x: app.unit,
-        y: height - (app.unit * 2),
+        y: height - app.unit,
         type: 'wasp'
     }));
     game.swarm.push(creatures.makeCreature({
-        x: width - (app.unit * 2),
+        x: width - app.unit,
         y: app.unit,
         type: 'hornet'
     }));
@@ -54,16 +69,25 @@ function setup() {
 
 function draw() {
     background(220);
-    // game.mapGenerator.draw();
+    
+    const { player, swarm} = game;
+    image(game.buffer, 0, 0);
 
-    if (game.player.life)
-        game.player.draw();
-    for (const creature of game.swarm) 
+    if (player.life)
+        player.draw();
+    for (const creature of swarm)
         creature.draw();
-    game.player.move();
+    player.move();
+
+    if (player.pos.x > width / 2 && player.pos.x < game.map_width - width / 2) {
+        const canvas = document.querySelector('main');
+        canvas.style.transform = `translateX(-${player.pos.x - width / 2}px)`;
+    }
+
     for (const creature of game.swarm)
         creature.move();
-    
+
+
     for (let i = 0; i < game.player.bullets.length; i++) {
         const bullet = game.player.bullets[i];
         for (const creature of game.swarm) {
