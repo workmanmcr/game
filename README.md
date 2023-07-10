@@ -10,14 +10,10 @@ Inspired by: [Oregon Trail](https://www.youtube.com/watch?v=FfbGEP087HM)
 - HTML5
 - CSS3
 - Skeleton 2.0.4 by Dave Gamache
-- Node.js
-  - Webpack
-  - ESLint
-  - Jest, Jest-Each
-  - Babel
+- JP5
 
 ## **Description**
-
+we tried to create a game that was suppoesd to be a more fun version of the oregon trail. 
 
 
 ## **Complete Setup**
